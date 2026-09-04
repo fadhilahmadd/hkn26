@@ -31,11 +31,11 @@ export default function AdditionalSections() {
         { 
           opacity: 1, 
           y: 0, 
-          duration: 1, 
+          duration: 0.7, 
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 85%", // Trigger when top of element hits 85% down the viewport
+            start: "top 95%", // Trigger earlier when it just enters the viewport
             toggleActions: "play none none none"
           }
         }
@@ -194,7 +194,7 @@ export default function AdditionalSections() {
           <Image src="/line-art-jersey.webp" fill alt="" aria-hidden="true" className="object-cover" sizes="100vw" quality={60} priority />
         </div>
         
-        <div className="scroll-reveal delay-100 max-w-7xl mx-auto relative z-10">
+        <div className="scroll-reveal max-w-7xl mx-auto relative z-10">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-nunito text-center mb-12 sm:mb-16 tracking-tight text-white px-4">
             SIZE CHART - HKN 62 FUN RUN 2026
           </h2>
