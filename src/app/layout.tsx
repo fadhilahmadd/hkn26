@@ -25,7 +25,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tias.co.id/event/hkn-fun-run-2026'),
+  metadataBase: new URL('https://hknrun62.com'),
   alternates: {
     canonical: '/',
   },
@@ -68,12 +68,12 @@ const eventJsonLd = {
     }
   },
   "image": [
-    "https://tias.co.id/event/hkn-fun-run-2026/logo-hkn-run.webp"
+    "https://hknrun62.com/logo-hkn-run.webp"
   ],
   "description": "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event. Kategori Umum, Pelajar, Instansi Kesehatan.",
   "offers": {
     "@type": "Offer",
-    "url": "https://tias.co.id/event/hkn-fun-run-2026",
+    "url": "https://hknrun62.com/event/hkn-fun-run-2026",
     "price": "140000",
     "priceCurrency": "IDR",
     "availability": "https://schema.org/InStock",
@@ -82,7 +82,7 @@ const eventJsonLd = {
   "organizer": {
     "@type": "Organization",
     "name": "HKN62 Committee",
-    "url": "https://tias.co.id/event/hkn-fun-run-2026"
+    "url": "https://hknrun62.com/event/hkn-fun-run-2026"
   }
 };
 

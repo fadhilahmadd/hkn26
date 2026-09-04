@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://tias.co.id/event/hkn-fun-run-2026';
+  const baseUrl = 'https://hknrun62.com'; // the production URL or domain
   
   return {
     rules: {

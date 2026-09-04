@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://tias.co.id/event/hkn-fun-run-2026'; // the production URL or domain
+  const baseUrl = 'https://hknrun62.com'; // the production URL or domain
   
   return [
     {
