@@ -220,28 +220,7 @@ export default function HeroScene() {
 
       
       {/* Header */}
-      <header className="fixed top-0 left-0 z-50 flex w-full items-center justify-between px-[4%] py-4 md:py-6 bg-gradient-to-b from-[#051f1c]/80 to-transparent">
-        <div className="flex items-center">
-          <Image 
-            src="/logo-hkn-run.webp" 
-            width={240} 
-            height={96} 
-            alt="HKN62 Logo" 
-            className="object-contain h-20 sm:h-28 w-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] transform hover:scale-105 transition-transform duration-300" 
-            sizes="(max-width: 768px) 80vw, 60vw" priority 
-          />
-        </div>
-        <nav className="glass hidden md:flex items-center gap-1 rounded-full p-1.5 shadow-xl border border-white/10" aria-label="Main">
-          {["Home", "Route", "Categories", "Rules"].map((item, i) => (
-            <a key={item} href="#" className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${i === 0 ? "bg-white text-[#1a6860] shadow-md" : "text-white/80 hover:text-white hover:bg-white/10"}`} aria-current={i === 0 ? "page" : undefined}>
-              {item}
-            </a>
-          ))}
-        </nav>
-        <button type="button" className="rounded-full bg-[#8baa37] px-8 py-3.5 text-sm font-bold tracking-wide text-[#093833] uppercase transition-all duration-300 hover:bg-white hover:shadow-[0_0_20px_rgba(139,170,55,0.4)] hover:scale-105 border border-[#8baa37]">
-          Register Now
-        </button>
-      </header>
+      
 
       {/* Hero main */}
       <main id="hero-main" className="relative flex h-full items-center justify-center pt-20">
@@ -258,7 +237,7 @@ export default function HeroScene() {
             </p>
             
             <div className="mt-8 hidden sm:flex items-center justify-center lg:justify-start gap-4">
-              <div className="glass flex h-12 w-12 items-center justify-center rounded-xl">
+              <div className="glass flex h-12 w-12 items-center justify-center rounded-xl text-white">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M13 17L18 12L13 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M6 17L11 12L6 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -352,7 +331,7 @@ export default function HeroScene() {
                     activeCard === "classic" ? "border-2 border-[#8CA825] shadow-lg" : "border border-white/10"
                   }`}
                 >
-                  <div className="-mt-16 h-20 w-20 relative"><Image src="/MEDALI-TAMPAK-DEPAN-Photoroom.webp" fill alt="Medal" className="object-contain drop-shadow-xl" sizes="80px" /></div>
+                  <div className="-mt-16 h-20 w-20 relative"><Image src="/MEDALI-TAMPAK-DEPAN-Photoroom.webp" fill alt="Medal" className="object-contain drop-shadow-xl" sizes="80px" priority /></div>
                   <div className="flex flex-col">
                     <span className="font-semibold text-white">Medali</span>
                     <span className="text-sm text-white/80">Finisher</span>

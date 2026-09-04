@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Nunito, Poppins, Galada } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import GlobalBackground from "./components/GlobalBackground";
 
 const galada = Galada({
   weight: "400",
@@ -51,8 +54,11 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${poppins.variable} ${galada.variable}`}
     >
-      <body className="font-poppins">
+      <body className="font-poppins bg-[#0a0a0a] overflow-x-hidden">
+        <GlobalBackground />
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

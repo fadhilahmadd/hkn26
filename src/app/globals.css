@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
   --brand: #1a6860;       /* primary teal from flyer */
   --brand-deep: #093833;  /* deep teal — hero/stats/footer base */
   --brand-light: #8baa37; /* light green accent / focus ring */

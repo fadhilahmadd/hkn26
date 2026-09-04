@@ -3,16 +3,99 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
+
+const ASSETS = [
+  { src: '/running1.webp', w: 180, h: 180, t: '5%', l: '2%' },
+  { src: '/running2.webp', w: 150, h: 150, t: '30%', l: '85%' },
+  { src: '/running3.webp', w: 200, h: 200, t: '60%', l: '5%' },
+  { src: '/shoe1.webp', w: 140, h: 140, t: '85%', l: '85%' },
+];
+
 export default function AdditionalSections() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const mouse = useRef({ x: 0, y: 0 });
+  const currentMouse = useRef({ x: 0, y: 0 });
+  const animFrameId = useRef(0);
+
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-12');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+
+  useEffect(() => {
+    const onMouse = (e: MouseEvent) => {
+      mouse.current.x = e.clientX / window.innerWidth - 0.5;
+      mouse.current.y = e.clientY / window.innerHeight - 0.5;
+    };
+    window.addEventListener("mousemove", onMouse);
+
+    const render = () => {
+      currentMouse.current.x += (mouse.current.x - currentMouse.current.x) * 0.1;
+      currentMouse.current.y += (mouse.current.y - currentMouse.current.y) * 0.1;
+      
+      if (containerRef.current) {
+        const t = Date.now() / 1000;
+        const floaters = containerRef.current.querySelectorAll('.sect-floater');
+        floaters.forEach((el, i) => {
+          const phase = t + i * 1.5;
+          const htmlEl = el as HTMLElement;
+          const px = currentMouse.current.x * (i % 2 === 0 ? -60 : 60);
+          const py = currentMouse.current.y * (i % 2 === 0 ? -60 : 60) + Math.sin(phase) * 15;
+          const rot = Math.cos(phase) * 5 + (currentMouse.current.x * 15);
+          htmlEl.style.transform = `translate(${px}px, ${py}px) rotate(${rot}deg)`;
+        });
+      }
+      animFrameId.current = requestAnimationFrame(render);
+    };
+    render();
+
+    return () => {
+      window.removeEventListener("mousemove", onMouse);
+      cancelAnimationFrame(animFrameId.current);
+    };
+  }, []);
+
 
 
   return (
     <div ref={containerRef} className="bg-white text-[#0a0a0a] font-poppins relative z-20 overflow-hidden">
+
+      {/* Background Floating Assets */}
+      <div className="absolute inset-0 z-0 pointer-events-none hidden sm:block">
+        {ASSETS.map((asset, i) => (
+          <div
+            key={i}
+            className="sect-floater absolute drop-shadow-xl"
+            style={{
+              top: asset.t,
+              left: asset.l,
+              width: `${asset.w}px`,
+              height: `${asset.h}px`,
+            }}
+          >
+            <Image src={asset.src} fill alt="Decorative Asset" className="object-contain opacity-80" sizes="200px" />
+          </div>
+        ))}
+      </div>
+
       
       {/* EVENT INFO SECTION */}
       <section className="px-[4%] sm:px-10 py-16 sm:py-24 relative isolate">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
+        <div className="scroll-reveal opacity-0 translate-y-12 transition-all duration-1000 ease-out max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
           
           <div className="w-full lg:w-auto flex-1 space-y-8">
             <div>
@@ -58,13 +141,19 @@ export default function AdditionalSections() {
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M12 12h.01"></path><path d="M17 12h.01"></path><path d="M7 12h.01"></path></svg>
                 </div>
                 <div>
-                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider">Harga Tiket</div>
-                  <div className="text-2xl font-bold font-nunito text-[#8baa37]">Rp. 150.000,-</div>
+                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider mb-2">Harga Tiket</div>
+                  <div className="flex flex-col items-start gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-[#1a6860] text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">Early Bird</span>
+                      <span className="text-[#717784] text-sm sm:text-base line-through font-bold">Rp 150.000,-</span>
+                    </div>
+                    <div className="text-3xl font-black font-nunito text-[#8baa37]">Rp 140.000,-</div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <a href="#" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a6860] text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-[#8baa37] transition-colors duration-300 w-full sm:w-auto mt-6">
+            <a href="/category" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a6860] text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-[#8baa37] transition-colors duration-300 w-full sm:w-auto mt-6">
               Register Now
             </a>
           </div>
@@ -90,11 +179,11 @@ export default function AdditionalSections() {
       <section className="bg-[#093833] text-white px-[4%] sm:px-10 py-20 mx-2 sm:mx-4 rounded-[2rem] shadow-xl relative overflow-hidden">
         {/* Background Wayang pattern */}
         <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none object-cover">
-          <Image src="/line-art-jersey.webp" fill alt="" aria-hidden="true" className="object-cover" sizes="100vw" quality={60} />
+          <Image src="/line-art-jersey.webp" fill alt="" aria-hidden="true" className="object-cover" sizes="100vw" quality={60} priority />
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-nunito text-center mb-12 sm:mb-16 tracking-tight text-[#8baa37] px-4">
+        <div className="scroll-reveal opacity-0 translate-y-12 transition-all duration-1000 ease-out delay-100 max-w-7xl mx-auto relative z-10">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-nunito text-center mb-12 sm:mb-16 tracking-tight text-white px-4">
             SIZE CHART - HKN 62 FUN RUN 2026
           </h2>
           
@@ -142,86 +231,7 @@ export default function AdditionalSections() {
 
       
       {/* 6. FOOTER */}
-      <footer id="contact" className="bg-[#093833] text-white px-[4%] sm:px-10 py-14 sm:py-16 rounded-[2rem] mx-2 sm:mx-4 mt-3 mb-2 shadow-2xl relative z-10">
-        <div className="max-w-7xl mx-auto">
-          {/* CTA Band */}
-          <div className="border-b border-white/15 pb-14 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-white/70">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8baa37]"></div>
-                HKN26
-              </div>
-              <h2 className="text-4xl sm:text-6xl font-bold mt-4 font-nunito leading-[0.92] tracking-tight">
-                Ready to run?
-              </h2>
-            </div>
-            <a href="#" className="inline-flex items-center gap-2 rounded-full bg-white text-[#093833] px-7 py-3.5 text-sm font-bold uppercase tracking-wide hover:bg-[#8baa37] hover:text-white transition-colors duration-300 group">
-              Register Now
-              <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
-            </a>
-          </div>
-          
-          {/* Columns */}
-          <div className="py-10 lg:py-14 grid grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8 lg:gap-10">
-            <div className="max-w-[20rem] col-span-2 lg:col-span-1 mb-8 lg:mb-0">
-              <div className="flex items-center gap-2">
-                <Image src="/logo-hkn-run.webp" width={280} height={112} alt="Logo" className="object-contain h-20 w-auto drop-shadow-lg" />
-              </div>
-              <p className="text-sm text-white/65 mt-4 leading-relaxed">
-                The premium 5K running event in Wonosobo. Celebrate health, community, and pure adrenaline.
-              </p>
-              <address className="not-italic mt-6 text-sm text-white/80 flex flex-col gap-1">
-                <a href="mailto:info@hknrun62.com" className="hover:text-white transition-colors">info@hknrun62.com</a>
-                <a href="tel:+628123456789" className="hover:text-white transition-colors">+62 812 345 6789</a>
-                <span className="text-white/55 mt-1">Alun Alun Wonosobo, ID</span>
-              </address>
-            </div>
-            
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50 mb-4">Categories</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors">5K Umum</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">5K Pelajar</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Instansi Kesehatan</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50 mb-4">Event Info</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors">Route Map</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Racepack Info</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Rules & FAQ</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50 mb-4">Company</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors">About HKN62</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Sponsorships</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          {/* Bottom Bar */}
-          <div className="border-t border-white/15 pt-8 pb-4 text-xs sm:text-sm text-white/60 flex flex-col lg:flex-row justify-between items-center text-center lg:text-left gap-6 lg:gap-5">
-            <div className="order-3 lg:order-1 mt-4 lg:mt-0">© 2026 HKN62 Fun Run. All rights reserved.</div>
-            <div className="flex gap-6 lg:gap-5 order-1 lg:order-2">
-              <a href="#" className="hover:text-white transition-colors">Instagram</a>
-              <a href="#" className="hover:text-white transition-colors">X</a>
-              <a href="#" className="hover:text-white transition-colors">Facebook</a>
-            </div>
-            <div className="flex flex-wrap justify-center gap-4 lg:gap-5 order-2 lg:order-3">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }
