@@ -25,6 +25,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tias.co.id/event/hkn-fun-run-2026'),
+  alternates: {
+    canonical: '/',
+  },
   title: "HKN62 FUN RUN 2026 | Run Beyond Limits",
   description:
     "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event. Kategori Umum, Pelajar, Instansi Kesehatan. Register now!",
@@ -44,6 +48,44 @@ export const metadata: Metadata = {
   },
 };
 
+
+const eventJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "HKN62 FUN RUN 2026",
+  "startDate": "2026-10-18T06:00:00+07:00",
+  "endDate": "2026-10-18T10:00:00+07:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Alun Alun Wonosobo",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Wonosobo",
+      "addressRegion": "Central Java",
+      "addressCountry": "ID"
+    }
+  },
+  "image": [
+    "https://tias.co.id/event/hkn-fun-run-2026/logo-hkn-run.webp"
+  ],
+  "description": "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event. Kategori Umum, Pelajar, Instansi Kesehatan.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://tias.co.id/event/hkn-fun-run-2026",
+    "price": "140000",
+    "priceCurrency": "IDR",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2026-09-01T00:00:00+07:00"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "HKN62 Committee",
+    "url": "https://tias.co.id/event/hkn-fun-run-2026"
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,7 +96,9 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${poppins.variable} ${galada.variable}`}
     >
+      
       <body className="font-poppins bg-[#0a0a0a] overflow-x-hidden">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
         <GlobalBackground />
         <Header />
         {children}

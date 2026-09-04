@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
 
@@ -18,21 +20,31 @@ export default function AdditionalSections() {
   const currentMouse = useRef({ x: 0, y: 0 });
   const animFrameId = useRef(0);
 
-  // Scroll reveal animation
+  // Scroll reveal animation using GSAP
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('opacity-100', 'translate-y-0');
-          entry.target.classList.remove('opacity-0', 'translate-y-12');
-        }
-      });
-    }, { threshold: 0.1 });
-
+    gsap.registerPlugin(ScrollTrigger);
+    
     const revealElements = document.querySelectorAll('.scroll-reveal');
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
+    revealElements.forEach((el) => {
+      gsap.fromTo(el, 
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%", // Trigger when top of element hits 85% down the viewport
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
   }, []);
 
 
@@ -95,7 +107,7 @@ export default function AdditionalSections() {
       
       {/* EVENT INFO SECTION */}
       <section className="px-[4%] sm:px-10 py-16 sm:py-24 relative isolate">
-        <div className="scroll-reveal opacity-0 translate-y-12 transition-all duration-1000 ease-out max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
+        <div className="scroll-reveal max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
           
           <div className="w-full lg:w-auto flex-1 space-y-8">
             <div>
@@ -182,7 +194,7 @@ export default function AdditionalSections() {
           <Image src="/line-art-jersey.webp" fill alt="" aria-hidden="true" className="object-cover" sizes="100vw" quality={60} priority />
         </div>
         
-        <div className="scroll-reveal opacity-0 translate-y-12 transition-all duration-1000 ease-out delay-100 max-w-7xl mx-auto relative z-10">
+        <div className="scroll-reveal delay-100 max-w-7xl mx-auto relative z-10">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-nunito text-center mb-12 sm:mb-16 tracking-tight text-white px-4">
             SIZE CHART - HKN 62 FUN RUN 2026
           </h2>
