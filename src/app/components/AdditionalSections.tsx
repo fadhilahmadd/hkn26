@@ -55,6 +55,17 @@ export default function AdditionalSections() {
     };
     window.addEventListener("mousemove", onMouse);
 
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouse.current.x = touch.clientX / window.innerWidth - 0.5;
+        mouse.current.y = touch.clientY / window.innerHeight - 0.5;
+      }
+    };
+    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+
+
     const render = () => {
       currentMouse.current.x += (mouse.current.x - currentMouse.current.x) * 0.1;
       currentMouse.current.y += (mouse.current.y - currentMouse.current.y) * 0.1;
@@ -77,6 +88,8 @@ export default function AdditionalSections() {
 
     return () => {
       window.removeEventListener("mousemove", onMouse);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("touchstart", onTouch);
       cancelAnimationFrame(animFrameId.current);
     };
   }, []);

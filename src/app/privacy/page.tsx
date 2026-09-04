@@ -38,7 +38,7 @@ export default function PrivacyPage() {
         <h2 className="text-2xl font-bold text-[#8baa37] mt-10 mb-4">3. Data Sharing and Disclosure</h2>
         <p>We do not sell, trade, or rent your personal identification information to third parties. We may share your information only under the following circumstances:</p>
         <ul className="list-disc pl-5 space-y-2">
-          <li><strong>Service Providers:</strong> With trusted third-party vendors who assist us in operating our website, processing payments, or timing the race (e.g., our official registration portal hknrun62.com).</li>
+          <li><strong>Service Providers:</strong> With trusted third-party vendors who assist us in operating our website, processing payments, or timing the race (e.g., our official registration portal hknfunrun.com).</li>
           <li><strong>Medical Personnel:</strong> With on-site medical staff, hospitals, or emergency responders if you require medical attention during the event.</li>
           <li><strong>Legal Requirements:</strong> If required by law, court order, or governmental authority to disclose your information to protect our rights or the safety of others.</li>
         </ul>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
 
         <h2 className="text-2xl font-bold text-[#8baa37] mt-10 mb-4">6. Your Rights</h2>
         <p>
-          You have the right to request access to the personal data we hold about you, request corrections to any inaccurate data, or request the deletion of your data (subject to legal and operational constraints prior to race day). To exercise these rights, please contact us at info@hknrun62.com.
+          You have the right to request access to the personal data we hold about you, request corrections to any inaccurate data, or request the deletion of your data (subject to legal and operational constraints prior to race day). To exercise these rights, please contact us at info@hknfunrun.com.
         </p>
       </div>
     </div>

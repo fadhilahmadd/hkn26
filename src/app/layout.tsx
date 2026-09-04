@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalBackground from "./components/GlobalBackground";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
 const galada = Galada({
   weight: "400",
@@ -25,7 +26,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hknrun62.com'),
+  metadataBase: new URL('https://hknfunrun.com'),
   alternates: {
     canonical: '/',
   },
@@ -68,12 +69,12 @@ const eventJsonLd = {
     }
   },
   "image": [
-    "https://hknrun62.com/logo-hkn-run.webp"
+    "https://hknfunrun.com/logo-hkn-run.webp"
   ],
   "description": "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event. Kategori Umum, Pelajar, Instansi Kesehatan.",
   "offers": {
     "@type": "Offer",
-    "url": "https://hknrun62.com/event/hkn-fun-run-2026",
+    "url": "https://hknfunrun.com/event/hkn-fun-run-2026",
     "price": "140000",
     "priceCurrency": "IDR",
     "availability": "https://schema.org/InStock",
@@ -82,7 +83,7 @@ const eventJsonLd = {
   "organizer": {
     "@type": "Organization",
     "name": "HKN62 Committee",
-    "url": "https://hknrun62.com/event/hkn-fun-run-2026"
+    "url": "https://hknfunrun.com/event/hkn-fun-run-2026"
   }
 };
 
@@ -103,6 +104,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <FloatingWhatsApp />
       </body>
     </html>
   );

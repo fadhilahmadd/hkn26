@@ -95,6 +95,19 @@ export default function HeroScene() {
     };
     window.addEventListener("mousemove", onMouse);
 
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouse.current.x = touch.clientX / window.innerWidth - 0.5;
+        mouse.current.y = touch.clientY / window.innerHeight - 0.5;
+        mouse.current.px = touch.clientX;
+        mouse.current.py = touch.clientY;
+      }
+    };
+    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+
+
         const render = () => {
       // Lerp mouse
       currentMouse.current.x += (mouse.current.x - currentMouse.current.x) * 0.1;
@@ -140,6 +153,8 @@ export default function HeroScene() {
 
     return () => {
       window.removeEventListener("mousemove", onMouse);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("touchstart", onTouch);
       cancelAnimationFrame(animFrameId.current);
     };
   }, [mounted]);
@@ -203,10 +218,10 @@ export default function HeroScene() {
   if (!mounted) return null;
 
   return (
-    <div ref={containerRef} className="relative h-screen w-screen overflow-hidden">
+    <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
       
       {/* Hero Background Image */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <Image src="/hero-bg.webp" fill alt="Background" className="object-cover opacity-80" priority sizes="100vw" quality={90} />
         {/* Optional overlay to ensure text remains readable */}
         <div className="absolute inset-0 bg-[#093833]/40 mix-blend-multiply"></div>
@@ -258,8 +273,9 @@ export default function HeroScene() {
               alt="Medal for HKN62 Fun Run 2026"
               width={800}
               height={800}
-              className="object-contain drop-shadow-2xl w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vh] max-h-[600px]"
+              className="object-contain drop-shadow-2xl w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vh] max-h-[600px] pointer-events-auto cursor-grab active:cursor-grabbing"
               sizes="(max-width: 768px) 80vw, 60vw" priority
+              style={{ touchAction: 'none' }}
             />
           </div>
 
