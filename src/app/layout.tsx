@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalBackground from "./components/GlobalBackground";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import Preloader from "./components/Preloader";
+import NextTopLoader from "nextjs-toploader";
 
 const galada = Galada({
   weight: "400",
@@ -99,6 +101,8 @@ export default function RootLayout({
     >
       
       <body className="font-poppins bg-[#0a0a0a] overflow-x-hidden">
+        <NextTopLoader color="#8baa37" showSpinner={false} speed={200} height={4} />
+        <Preloader />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
         <GlobalBackground />
         <Header />
