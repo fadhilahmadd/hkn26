@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 
 
 const ASSETS = [
@@ -167,20 +168,14 @@ export default function AdditionalSections() {
                 </div>
                 <div>
                   <div className="text-sm text-[#717784] uppercase font-bold tracking-wider mb-2">Harga Tiket</div>
-                  <div className="flex flex-col items-start gap-1">
-                    <div className="flex items-center gap-2">
-                      <span className="bg-[#1a6860] text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm">Early Bird</span>
-                      <span className="text-[#717784] text-sm sm:text-base line-through font-bold">Rp 150.000,-</span>
-                    </div>
-                    <div className="text-3xl font-black font-nunito text-[#8baa37]">Rp 140.000,-</div>
-                  </div>
+                  <div className="text-3xl font-black font-nunito text-[#8baa37]">Rp 150.000,-</div>
                 </div>
               </div>
             </div>
             
-            <a href="/category" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a6860] text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-[#8baa37] transition-colors duration-300 w-full sm:w-auto mt-6">
+            <Link href="/category" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a6860] text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-[#8baa37] transition-colors duration-300 w-full sm:w-auto mt-6">
               Register Now
-            </a>
+            </Link>
           </div>
           
           <div className="w-full lg:w-auto flex-1 bg-[#f4f4f4] rounded-[2rem] p-6 sm:p-12 shadow-inner">

@@ -7,7 +7,7 @@ const HeroScene = dynamic(
   () => import("@/app/components/HeroScene.client"),
   {
     ssr: false,
-    loading: () => <div className="fixed inset-0 z-[-1] bg-[#051f1c]"></div>,
+    loading: () => <div className="relative h-screen w-full bg-[#051f1c]" />,
   },
 );
 

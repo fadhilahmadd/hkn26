@@ -19,12 +19,8 @@ export default function CategoryPage() {
           
           <div className="text-left md:text-right">
             <div className="flex flex-col items-start md:items-end mb-4">
-              <div className="inline-flex items-center gap-2 mb-1">
-                <span className="bg-[#8baa37] text-[#093833] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">Early Bird</span>
-                <span className="text-white/50 text-base md:text-lg line-through font-bold">Rp 150.000,-</span>
-              </div>
               <div className="text-4xl md:text-5xl font-black text-[#8baa37]">
-                Rp 140.000,-
+                Rp 150.000,-
               </div>
             </div>
             <a href="https://tias.co.id/event/hkn-fun-run-2026" target="_blank" rel="noopener noreferrer" className="inline-block rounded-full bg-[#8baa37] px-8 py-4 text-sm font-bold tracking-wide text-[#093833] uppercase transition-all duration-300 hover:bg-white hover:scale-105 shadow-[0_0_20px_rgba(139,170,55,0.2)] hover:shadow-[0_0_30px_rgba(139,170,55,0.5)]">

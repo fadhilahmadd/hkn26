@@ -1,9 +1,6 @@
 "use client";
 
-import React from "react";
-import { useEffect, useRef, useState } from "react";
-import type { ModelViewerElement } from "@google/model-viewer";
-import "@google/model-viewer";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
@@ -28,7 +25,7 @@ declare global {
             loading?: string;
             variantName?: string;
           },
-          ModelViewerElement
+          HTMLElement
         >;
       }
     }
@@ -68,9 +65,9 @@ const ORBITS = [
 export default function HeroScene() {
   const [mounted, setMounted] = useState(false);
   const [activeCard, setActiveCard] = useState<Theme>("classic");
-  const [centerImage, setCenterImage] = useState("/MEDALI-TAMPAK-DEPAN-Photoroom.webp");
+  const [displayedCard, setDisplayedCard] = useState<Theme>("classic");
   const containerRef = useRef<HTMLDivElement>(null);
-  const centerModelRef = useRef<HTMLImageElement>(null);
+  const centerModelRef = useRef<HTMLDivElement>(null);
 
   const mouse = useRef({ x: 0, y: 0, px: 0, py: 0 });
   const currentMouse = useRef({ x: 0, y: 0 });
@@ -192,7 +189,7 @@ export default function HeroScene() {
           centerModelRef.current.style.filter = `blur(${spinObj.blur}px)`;
       },
       onComplete: () => {
-        setCenterImage(theme === "energy" ? "/JERSEY-Photoroom.webp" : "/MEDALI-TAMPAK-DEPAN-Photoroom.webp");
+        setDisplayedCard(theme);
         
         gsap.to(spinObj, {
           val: 720,
@@ -267,16 +264,22 @@ export default function HeroScene() {
 
           {/* Center 3D model */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-full w-full items-center justify-center pointer-events-none">
-            <Image
-              ref={centerModelRef}
-              src={centerImage}
-              alt="Medal for HKN62 Fun Run 2026"
-              width={800}
-              height={800}
-              className="object-contain drop-shadow-2xl w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vh] max-h-[600px] pointer-events-auto cursor-grab active:cursor-grabbing"
-              sizes="(max-width: 768px) 80vw, 60vw" priority
-              style={{ touchAction: 'none' }}
-            />
+            <div ref={centerModelRef} className="relative w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vh] max-w-[800px] max-h-[600px] pointer-events-auto cursor-grab active:cursor-grabbing" style={{ touchAction: 'none' }}>
+              <Image
+                src="/MEDALI-TAMPAK-DEPAN-Photoroom.webp"
+                alt="Medal for HKN62 Fun Run 2026"
+                fill
+                className={`object-contain drop-shadow-2xl ${displayedCard === 'classic' ? 'opacity-100' : 'opacity-0'}`}
+                sizes="(max-width: 768px) 80vw, 60vw" priority
+              />
+              <Image
+                src="/JERSEY-Photoroom.webp"
+                alt="Jersey for HKN62 Fun Run 2026"
+                fill
+                className={`object-contain drop-shadow-2xl ${displayedCard === 'energy' ? 'opacity-100' : 'opacity-0'}`}
+                sizes="(max-width: 768px) 80vw, 60vw" priority
+              />
+            </div>
           </div>
 
           {/* Floating models */}

@@ -5,8 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalBackground from "./components/GlobalBackground";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
-import Preloader from "./components/Preloader";
-import NextTopLoader from "nextjs-toploader";
 
 const galada = Galada({
   weight: "400",
@@ -77,7 +75,7 @@ const eventJsonLd = {
   "offers": {
     "@type": "Offer",
     "url": "https://hknfunrun.com/event/hkn-fun-run-2026",
-    "price": "140000",
+    "price": "150000",
     "priceCurrency": "IDR",
     "availability": "https://schema.org/InStock",
     "validFrom": "2026-09-01T00:00:00+07:00"
@@ -101,8 +99,6 @@ export default function RootLayout({
     >
       
       <body className="font-poppins bg-[#0a0a0a] overflow-x-hidden">
-        <NextTopLoader color="#8baa37" showSpinner={false} speed={200} height={4} />
-        <Preloader />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
         <GlobalBackground />
         <Header />
