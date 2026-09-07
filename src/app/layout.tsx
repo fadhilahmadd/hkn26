@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  title: "HKN62 FUN RUN 2026 | Run Beyond Limits",
+  title: "HKN62 FUN RUN 2026 | TAKE YOUR HEALTHY STEP",
   description:
     "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event. Kategori Umum, Pelajar, Instansi Kesehatan. Register now!",
   keywords: ["HKN62", "Fun Run", "5K", "marathon", "running event", "2026"],
   openGraph: {
-    title: "HKN62 FUN RUN 2026 | Run Beyond Limits",
+    title: "HKN62 FUN RUN 2026 | TAKE YOUR HEALTHY STEP",
     description:
       "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event.",
     type: "website",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HKN62 FUN RUN 2026 | Run Beyond Limits",
+    title: "HKN62 FUN RUN 2026 | TAKE YOUR HEALTHY STEP",
     description:
       "18 OKTOBER 2026 - Alun Alun Wonosobo. HKN62 FUN RUN 2026 5K event.",
   },
