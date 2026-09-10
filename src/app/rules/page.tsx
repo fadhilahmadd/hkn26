@@ -1,7 +1,29 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 export default function RulesPage() {
+  const [isDownloadingParental, setIsDownloadingParental] = useState(false);
+
+  const handleDownloadParental = async () => {
+    setIsDownloadingParental(true);
+    try {
+      const response = await fetch("/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    } finally {
+      setIsDownloadingParental(false);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-32 pb-20 px-[4%] max-w-4xl mx-auto text-white/90">
       <h1 className="text-4xl md:text-5xl font-black font-nunito tracking-tight mb-8 text-white">
@@ -16,12 +38,28 @@ export default function RulesPage() {
           Dengan mendaftar pada HKN Fun Run 2026, para Peserta telah menerima sepenuhnya dan wajib memenuhi Peraturan & Ketentuan Lomba berikut.
         </p>
 
-        <h2 className="text-2xl font-bold text-[#8baa37] mt-12 mb-6">UMUM | Pelajar | Instansi Kesehatan</h2>
+        <h2 className="text-2xl font-bold text-[#8baa37] mt-12 mb-6">KETENTUAN UMUM</h2>
         <ul className="list-disc pl-5 space-y-3">
           <li>HKN Fun Run 2026 akan dilaksanakan pada Minggu, 18 Oktober 2026 berlokasi di Alun Alun Wonosobo</li>
           <li>Kategori lomba adalah 5 KM</li>
           <li>Pendaftaran terbuka bagi pria dan wanita Warga Negara Indonesia pemilik KTP/SIM/Paspor Republik Indonesia dan Warga Negara Asing pemilik KITAS. Perlu diingat bahwa Warga Negara Asing tidak berhak atas podium dan hadiah pemenang.</li>
-          <li>Peserta berusia dibawah 17 tahun pada saat perlombaan diharuskan untuk membawa surat izin orang tua (parental consent letter) dengan format yang dapat diunduh di sini.</li>
+          <li>
+            Peserta berusia dibawah 17 tahun pada saat perlombaan diharuskan untuk membawa <span className="font-bold">surat izin orang tua</span> (parental consent letter) dengan format yang dapat diunduh
+            {isDownloadingParental ? (
+              <span className="inline-flex items-center ml-1 text-[#8baa37]">
+                <svg className="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                mengunduh...
+              </span>
+            ) : (
+              <button onClick={handleDownloadParental} className="text-[#8baa37] hover:underline underline-offset-4 cursor-pointer focus:outline-none ml-1">
+                di sini
+              </button>
+            )}
+            .
+          </li>
           <li>Kategori Pelajar diperuntukan khusus untuk peserta pelajar berstatus pelajar aktif memiliki rentang usia 10-17 tahun. Status pelajar aktif harus dapat dibuktikan dalam bentuk kartu pelajar yang valid dan/atau surat pernyataan dari sekolah. Bagi peserta yang pada hari lomba kedapatan tidak memenuhi salah satu ketentuan tersebut, akan terdiskualifikasi secara otomatis.</li>
           <li>Umur maksimal yang direkomendasikan adalah 65 tahun.</li>
           <li>Podium juara diberikan kepada pemenang laki-laki dan perempuan yang mendaftar sesuai kategorinya masing-masing. Peserta Warga Negara Asing tidak berhak mendapatkan podium dan hadiah pemenang.</li>
@@ -44,6 +82,7 @@ export default function RulesPage() {
           <li>Hak cipta dari gambar, foto, artikel, catatan lomba, dan informasi lokasi, yang meliput acara tersebut, dan hak penggunaannya untuk siaran TV, surat kabar, majalah, dan Internet, menjadi milik penyelenggara acara. Hak cipta yang disebutkan di atas termasuk tetapi tidak terbatas pada nama dan informasi pribadi lainnya seperti usia dan alamat (hanya negara, provinsi dan kota) dari peserta yang disebutkan dalam artikel yang meliput acara tersebut.</li>
           <li>Penyelenggara berhak mengubah aturan kapan saja yang dianggap perlu dan sesuai dengan keadaan, baik sebelum dan saat lomba berlangsung, tanpa pemberitahuan terlebih dahulu beserta alasannya.</li>
           <li>Hal-hal lain yang belum tercantum dalam Peraturan & Ketentuan ini akan ditentukan kemudian oleh Penyelenggara.</li>
+          <li>Sistem pengaturan waktu akan disiapkan oleh Panitia Pelaksana untuk 5 pelari tercepat masing-masing kategori baik laki-laki maupun perempuan. Wajib tetap berada di jalur yang ditandai. Memotong jalur (shortcutting) atau menyimpang dari rute dilarang dan dapat menyebabkan diskualifikasi.</li>
         </ul>
 
         <h2 className="text-2xl font-bold text-[#8baa37] mt-12 mb-6">PARTISIPASI</h2>
@@ -57,6 +96,13 @@ export default function RulesPage() {
           <li>Peserta menyetujui untuk memberikan informasi tentang kepesertaan yang benar, akurat, terkini dan menyeluruh, yang terdapat dalam formulir pendaftaran. Pihak penyelenggara dapat menghubungi peserta sewaktu-waktu melalui surat elektronik. Surat pemberitahuan dikirim ke alamat surat elektronik yang terdaftar, untuk itu mohon agar dapat mengecek kembali alamat email yang benar pada saat mendaftar.</li>
           <li>Nomor peserta lomba (bib) adalah pengenal spesifik perseorangan dan tidak dapat dipertukarkan dengan atau dipindahkan/dijual kepada orang lain.</li>
           <li>Penjualan dan/atau pemindahtanganan nomor peserta lomba sangat dilarang keras dan akan mengakibatkan diskualifikasi dan/atau pelarangan orang tersebut dalam keikutsertaan di acara HKN Fun Run 2026 di masa yang akan datang.</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold text-[#8baa37] mt-12 mb-6">PARTISIPASI KATEGORI</h2>
+        <ul className="list-disc pl-5 space-y-3">
+          <li>Kategori Umum diperuntukan untuk peserta berusia 17 tahun keatas.</li>
+          <li>Kategori Pelajar diperuntukan khusus untuk peserta pelajar berstatus pelajar aktif memiliki rentang usia maksimal 17 tahun (pada saat hari lomba 18 Oktober 2026) dibuktikan dengan kartu pelajar.</li>
+          <li>Kategori Instansi Kesehatan diperuntukan khusus untuk peserta yang bekerja di Fasilitas Pelayanan Kesehatan dibuktikan dengan SIP (Surat Ijin Praktek) / Surat Keterangan Kerja / ID Card Pegawai / Data Diri e-SIMPEG.</li>
         </ul>
 
         <h2 className="text-2xl font-bold text-[#8baa37] mt-12 mb-6">PAKET LOMBA & HARI LOMBA</h2>
@@ -97,6 +143,9 @@ export default function RulesPage() {
           <li>Hadiah bagi Pemenang pada Podium di masing-masing kategori jarak Lomba berupa uang yang nominalnya telah ditentukan Penyelenggara Lomba.</li>
           <li>Mohon diperhatikan bahwa hadiah Pemenang berupa uang adalah obyek pajak menurut peraturan pemerintah yang berlaku, yang ditanggung sepenuhnya oleh pemenang. Panitia berkewajiban untuk memungut langsung pajak hadiah Pemenang serta menyetorkan dan melaporkan kepada instansi pemerintah terkait.</li>
           <li>Proses pencairan hadiah Pemenang akan dilakukan dalam waktu maksimal 15 hari kerja sejak Hari Lomba. Pemenang harus memastikan keakuratan informasi nomor rekening bank, alamat yang disyaratkan oleh Penyelenggara Lomba. Kegagalan memberikan informasi yang akurat sehingga berpotensi mengakibatkan keterlambatan proses pencairan hadiah, adalah sepenuhnya tanggung jawab Pemenang terkait.</li>
+          <li>Pemenang lomba harus mengenakan nomor bib dengan tag pencatat waktu dan diharuskan untuk memberikan bukti identifikasi (KTP/SIM/Kartu Pelajar/Akta Kelahiran/Kartu Keluarga/Paspor) yang berlaku yang sesuai dengan identitas yang didaftarkan. Jika bib Anda tidak memiliki tag pencatat waktu di bagian belakang, harap melapor kepada penyelenggara pada saat pengambilan paket lomba.</li>
+          <li>Juara dan Pemenang pada kelompok Pelajar adalah mereka yang berusia 17 tahun ke bawah pada saat mengikuti lomba terhitung pada tanggal tanggal pelaksanaan (18 Oktober 2026) tahun berjalan.</li>
+          <li>Juara dan Pemenang pada kelompok INSTANSI KESEHATAN adalah diharuskan untuk memberikan bukti identifikasi berupa SIP (Surat Ijin Praktek) / Surat Keterangan Kerja / ID Card Pegawai / Data Diri e-SIMPEG.</li>
         </ul>
 
       </div>
