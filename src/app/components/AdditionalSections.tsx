@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import Link from "next/link";
 
 
 const ASSETS = [
@@ -173,9 +172,10 @@ export default function AdditionalSections() {
               </div>
             </div>
             
-            <Link href="/category" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1a6860] text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-[#8baa37] transition-colors duration-300 w-full sm:w-auto mt-6">
-              Register Now
-            </Link>
+            <span aria-disabled="true" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4f4f4] border border-[#e6e8ec] text-[#717784] px-8 py-4 font-bold uppercase tracking-wide cursor-not-allowed select-none w-full sm:w-auto mt-6">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Closed
+            </span>
           </div>
           
           <div className="w-full lg:w-auto flex-1 bg-[#f4f4f4] rounded-[2rem] p-6 sm:p-12 shadow-inner">
@@ -191,6 +191,47 @@ export default function AdditionalSections() {
               <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Finisher Medal</li>
               <li className="flex items-center gap-3 col-span-1 sm:col-span-2"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Full DoorPrize</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* DOWNLOAD DOCUMENTS */}
+      <section className="px-[4%] sm:px-10 pb-16 sm:pb-24 relative" id="dokumen">
+        <div className="scroll-reveal max-w-7xl mx-auto bg-[#f4f4f4] rounded-[2rem] p-6 sm:p-12 shadow-lg">
+          <h2 className="text-3xl sm:text-4xl font-bold font-nunito tracking-tight text-[#1a6860] uppercase">
+            Dokumen <span className="text-[#8baa37]">Pendukung</span>
+          </h2>
+          <p className="mt-3 text-[#717784] max-w-2xl">
+            Unduh format surat yang diperlukan untuk pendaftaran dan pengambilan paket lomba.
+          </p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a
+              href="/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"
+              download="Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"
+              className="group inline-flex items-center gap-4 rounded-2xl border border-[#e6e8ec] bg-white px-5 py-4 shadow-sm hover:border-[#8baa37] hover:shadow-md transition-all duration-300"
+            >
+              <span className="w-11 h-11 shrink-0 rounded-full bg-[#1a6860]/10 text-[#1a6860] flex items-center justify-center group-hover:bg-[#1a6860] group-hover:text-white transition-colors duration-300">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </span>
+              <span className="text-left">
+                <span className="block font-bold font-nunito text-[#0a0a0a]">Surat Persetujuan Orang Tua</span>
+                <span className="block text-sm text-[#717784]">PDF · Wajib untuk peserta di bawah 17 tahun</span>
+              </span>
+            </a>
+
+            <a
+              href="/Surat-Kuasa-HKN-FUN-RUN-2026.pdf"
+              download="Surat-Kuasa-HKN-FUN-RUN-2026.pdf"
+              className="group inline-flex items-center gap-4 rounded-2xl border border-[#e6e8ec] bg-white px-5 py-4 shadow-sm hover:border-[#8baa37] hover:shadow-md transition-all duration-300"
+            >
+              <span className="w-11 h-11 shrink-0 rounded-full bg-[#1a6860]/10 text-[#1a6860] flex items-center justify-center group-hover:bg-[#1a6860] group-hover:text-white transition-colors duration-300">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </span>
+              <span className="text-left">
+                <span className="block font-bold font-nunito text-[#0a0a0a]">Surat Kuasa Pengambilan Paket</span>
+                <span className="block text-sm text-[#717784]">PDF · Wajib bila paket lomba diwakilkan</span>
+              </span>
+            </a>
           </div>
         </div>
       </section>

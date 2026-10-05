@@ -19,13 +19,15 @@ export default function CategoryPage() {
           
           <div className="text-left md:text-right">
             <div className="flex flex-col items-start md:items-end mb-4">
-              <div className="text-4xl md:text-5xl font-black text-[#8baa37]">
-                Rp 150.000,-
+              <div className="text-4xl md:text-5xl font-black text-[#8baa37]">Rp 150.000,-</div>
+              <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-400/30 px-4 py-1.5 text-sm font-bold tracking-wider text-red-400 uppercase">
+                Sold Out
               </div>
             </div>
-            <a href="https://tias.co.id/event/hkn-fun-run-2026" target="_blank" rel="noopener noreferrer" className="inline-block rounded-full bg-[#8baa37] px-8 py-4 text-sm font-bold tracking-wide text-[#093833] uppercase transition-all duration-300 hover:bg-white hover:scale-105 shadow-[0_0_20px_rgba(139,170,55,0.2)] hover:shadow-[0_0_30px_rgba(139,170,55,0.5)]">
-              Register Now
-            </a>
+            <span aria-disabled="true" className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-8 py-4 text-sm font-bold tracking-wide text-white/50 uppercase cursor-not-allowed select-none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Closed
+            </span>
           </div>
         </div>
 

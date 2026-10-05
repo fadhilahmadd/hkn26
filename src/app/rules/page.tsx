@@ -1,35 +1,59 @@
 "use client";
 import React, { useState } from "react";
 
-export default function RulesPage() {
-  const [isDownloadingParental, setIsDownloadingParental] = useState(false);
+type DownloadFile = { path: string; name: string };
 
-  const handleDownloadParental = async () => {
-    setIsDownloadingParental(true);
-    try {
-      const response = await fetch("/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf");
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading file:", error);
-    } finally {
-      setIsDownloadingParental(false);
-    }
+const DOWNLOAD_FILES = {
+  parentalConsent: {
+    path: "/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf",
+    name: "Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf",
+  },
+  suratKuasa: {
+    path: "/Surat-Kuasa-HKN-FUN-RUN-2026.pdf",
+    name: "Surat-Kuasa-HKN-FUN-RUN-2026.pdf",
+  },
+} satisfies Record<string, DownloadFile>;
+
+function DownloadLink({ file }: { file: DownloadFile }) {
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleClick = () => {
+    setIsDownloading(true);
+    // Native <a download> handles fetching/saving; timeout just resets the spinner.
+    window.setTimeout(() => setIsDownloading(false), 3000);
   };
 
+  if (isDownloading) {
+    return (
+      <span className="inline-flex items-center ml-1 text-[#8baa37]">
+        <svg className="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        mengunduh...
+      </span>
+    );
+  }
+
+  return (
+    <a
+      href={file.path}
+      download={file.name}
+      onClick={handleClick}
+      className="text-[#8baa37] hover:underline underline-offset-4 focus:outline-none ml-1"
+    >
+      di sini
+    </a>
+  );
+}
+
+export default function RulesPage() {
   return (
     <div className="min-h-screen pt-32 pb-20 px-[4%] max-w-4xl mx-auto text-white/90">
       <h1 className="text-4xl md:text-5xl font-black font-nunito tracking-tight mb-8 text-white">
         Rules & <span className="text-[#8baa37]">Regulations</span>
       </h1>
-      
+
       <div className="prose prose-invert prose-lg max-w-none space-y-6">
         <p className="font-semibold text-white">
           Semua peserta diwajibkan untuk membaca dan memahami seluruh Peraturan dan Ketentuan Lomba sebelum mendaftarkan diri di HKN Fun Run 2026.
@@ -45,20 +69,7 @@ export default function RulesPage() {
           <li>Pendaftaran terbuka bagi pria dan wanita Warga Negara Indonesia pemilik KTP/SIM/Paspor Republik Indonesia dan Warga Negara Asing pemilik KITAS. Perlu diingat bahwa Warga Negara Asing tidak berhak atas podium dan hadiah pemenang.</li>
           <li>
             Peserta berusia dibawah 17 tahun pada saat perlombaan diharuskan untuk membawa <span className="font-bold">surat izin orang tua</span> (parental consent letter) dengan format yang dapat diunduh
-            {isDownloadingParental ? (
-              <span className="inline-flex items-center ml-1 text-[#8baa37]">
-                <svg className="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                mengunduh...
-              </span>
-            ) : (
-              <button onClick={handleDownloadParental} className="text-[#8baa37] hover:underline underline-offset-4 cursor-pointer focus:outline-none ml-1">
-                di sini
-              </button>
-            )}
-            .
+            <DownloadLink file={DOWNLOAD_FILES.parentalConsent} />.
           </li>
           <li>Kategori Pelajar diperuntukan khusus untuk peserta pelajar berstatus pelajar aktif memiliki rentang usia 10-17 tahun. Status pelajar aktif harus dapat dibuktikan dalam bentuk kartu pelajar yang valid dan/atau surat pernyataan dari sekolah. Bagi peserta yang pada hari lomba kedapatan tidak memenuhi salah satu ketentuan tersebut, akan terdiskualifikasi secara otomatis.</li>
           <li>Umur maksimal yang direkomendasikan adalah 65 tahun.</li>
@@ -110,7 +121,10 @@ export default function RulesPage() {
           <li>Paket lomba harus diambil pada: Informasi perihal pengambilan paket lomba akan diinformasikan kemudian selambat-lambatnya tiga hari sebelum jadwal pengambilan paket lomba.</li>
           <li>Nomor lomba (bib) akan diberikan pada saat adanya penyerahan bukti konfirmasi dan kartu identitas. Nomor lomba (bib) harus dapat terbaca dengan jelas selama perlombaan.</li>
           <li>Paket lomba tidak dapat dikirim dan tidak dapat diambil pada hari lomba.</li>
-          <li>Pengambilan paket lomba dapat diwakilkan dengan syarat membawa fotokopi konfirmasi pendaftaran, fotokopi kartu identitas peserta dan surat kuasa dari peserta. Format surat kuasa dapat diunduh di sini.</li>
+          <li>
+            Pengambilan paket lomba dapat diwakilkan dengan syarat membawa fotokopi konfirmasi pendaftaran, fotokopi kartu identitas peserta dan surat kuasa dari peserta. Format surat kuasa dapat diunduh
+            <DownloadLink file={DOWNLOAD_FILES.suratKuasa} />.
+          </li>
           <li>Perwakilan untuk pengambilan paket lomba hanya diperbolehkan untuk mengambil maksimum tiga (3) paket lomba dalam satu (1) antrian.</li>
           <li>Peserta diijinkan untuk memulai perlombaan sesuai dengan waktu start dengan batas waktu maksimum untuk memulai lomba adalah 10 menit setelah Gun Start.</li>
           <li>Penunjuk waktu akan ditampilkan di start line dan finish line. Para peserta diijinkan untuk menyelesaikan jarak tempuh lomba untuk masing-masing kategori dalam waktu yang sudah ditentukan.</li>
