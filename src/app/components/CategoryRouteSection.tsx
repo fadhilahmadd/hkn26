@@ -37,7 +37,6 @@ const CATEGORIES: CategoryInfo[] = [
     isSoldOut: true,
     facilities: [
       "RACE JERSEY EXCLUSIVE",
-      "BIB NUMBER DENGAN TIMING CHIP",
       "MEDALI FINISHER UNTUK SELURUH FINISHER",
       "RACEPACK BAG RESMI HKN62",
       "WATER STATION (KM 2.5 & FINISH)",
@@ -57,7 +56,6 @@ const CATEGORIES: CategoryInfo[] = [
     isSoldOut: true,
     facilities: [
       "RACE JERSEY EXCLUSIVE",
-      "BIB NUMBER DENGAN TIMING CHIP",
       "MEDALI FINISHER UNTUK SELURUH FINISHER",
       "RACEPACK BAG RESMI HKN62",
       "WATER STATION (KM 2.5 & FINISH)",
@@ -77,7 +75,6 @@ const CATEGORIES: CategoryInfo[] = [
     isSoldOut: true,
     facilities: [
       "RACE JERSEY EXCLUSIVE",
-      "BIB NUMBER DENGAN TIMING CHIP",
       "MEDALI FINISHER UNTUK SELURUH FINISHER",
       "RACEPACK BAG RESMI HKN62",
       "WATER STATION (KM 2.5 & FINISH)",

@@ -249,7 +249,7 @@ export default function RouteMap({ activePoint }: RouteMapProps) {
       <div className="absolute top-4 left-4 z-[400] flex items-center gap-2">
         <div className="bg-[#051f1c]/90 border border-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-2 text-white text-xs font-bold">
           <span className="w-2 h-2 rounded-full bg-[#8baa37] animate-ping" />
-          <span>RUTE 5K • ALUN-ALUN WONOSOBO</span>
+          <span>RUTE 5K</span>
         </div>
       </div>
 

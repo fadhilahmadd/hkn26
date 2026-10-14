@@ -21,7 +21,7 @@ export default function ElevationProfile({
 
   const points = ROUTE_5K_POINTS;
 
-  const { minEle, maxEle, totalDist, pathD, areaD, width, height, padding, getX, getY } =
+  const { minEle, maxEle, totalDist, pathD, areaD, width, height, padding, chartW, getX, getY } =
     useMemo(() => {
       const w = 1000;
       const h = 200;
@@ -71,7 +71,10 @@ export default function ElevationProfile({
     const svg = e.currentTarget;
     const rect = svg.getBoundingClientRect();
     const clientX = e.clientX - rect.left;
-    const ratio = Math.max(0, Math.min(1, clientX / rect.width));
+    const svgX = (clientX / rect.width) * width;
+
+    // Map svgX within chart area [padding.left, width - padding.right] to [0, totalDist]
+    const ratio = Math.max(0, Math.min(1, (svgX - padding.left) / chartW));
     const targetDist = ratio * totalDist;
 
     // Find nearest point
@@ -116,31 +119,40 @@ export default function ElevationProfile({
       ref={containerRef}
       className="w-full bg-[#051f1c]/80 border border-white/10 rounded-2xl p-4 md:p-6 backdrop-blur-md shadow-xl"
     >
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-4 border-b border-white/10 pb-3">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 mb-4 border-b border-white/10 pb-3">
+        <div className="flex items-center gap-2.5">
           <div className="w-2.5 h-2.5 rounded-full bg-[#8baa37] animate-pulse" />
-          <h3 className="text-sm md:text-base font-black uppercase tracking-wider text-white">
+          <h3 className="text-xs sm:text-sm md:text-base font-black uppercase tracking-wider text-white">
             Elevation Profile <span className="text-[#8baa37]">(5K Route)</span>
           </h3>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-semibold">
-          <div className="bg-black/30 px-3 py-1.5 rounded-lg border border-white/5 text-white/80">
-            Gain: <span className="text-[#8baa37] font-bold">{ROUTE_5K_META.elevationGain}</span>
+        {/* Dynamic reading badge when touching/hovering */}
+        {currentDisplay ? (
+          <div className="flex items-center gap-2 bg-[#8baa37] text-black px-3 py-1 rounded-lg text-xs font-black tracking-wide shadow-md">
+            <span>📍 {currentDisplay.point.distKm.toFixed(2)} KM</span>
+            <span>•</span>
+            <span>{Math.round(currentDisplay.point.ele)} m</span>
           </div>
-          <div className="bg-black/30 px-3 py-1.5 rounded-lg border border-white/5 text-white/80">
-            Min: <span className="text-white font-bold">{ROUTE_5K_META.minElevation}</span>
+        ) : (
+          <div className="flex items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-semibold">
+            <div className="bg-black/30 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-white/5 text-white/80">
+              Gain: <span className="text-[#8baa37] font-bold">{ROUTE_5K_META.elevationGain}</span>
+            </div>
+            <div className="bg-black/30 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-white/5 text-white/80">
+              Min: <span className="text-white font-bold">{ROUTE_5K_META.minElevation}</span>
+            </div>
+            <div className="bg-black/30 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-white/5 text-white/80">
+              Max: <span className="text-white font-bold">{ROUTE_5K_META.maxElevation}</span>
+            </div>
           </div>
-          <div className="bg-black/30 px-3 py-1.5 rounded-lg border border-white/5 text-white/80">
-            Max: <span className="text-white font-bold">{ROUTE_5K_META.maxElevation}</span>
-          </div>
-        </div>
+        )}
       </div>
 
-      <div className="relative w-full overflow-hidden select-none touch-none">
+      <div className="relative w-full select-none touch-none pt-2 pb-1">
         <svg
           viewBox={`0 0 ${width} ${height}`}
-          className="w-full h-auto cursor-crosshair"
+          className="w-full h-auto cursor-crosshair overflow-visible"
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
         >
@@ -282,30 +294,58 @@ export default function ElevationProfile({
           )}
         </svg>
 
-        {/* Floating Tooltip following cursor */}
-        {currentDisplay && (
-          <div
-            className="absolute pointer-events-none z-20 bg-black/90 border border-[#8baa37] text-white text-xs px-3 py-2 rounded-lg shadow-2xl backdrop-blur-md transform -translate-x-1/2 -translate-y-full"
-            style={{
-              left: `${(currentDisplay.x / width) * 100}%`,
-              top: `${(currentDisplay.y / height) * 100}%`,
-              marginTop: "-12px",
-            }}
-          >
-            <div className="font-black text-[#8baa37] flex items-center gap-1.5 whitespace-nowrap">
-              <span>📍 {currentDisplay.point.distKm.toFixed(2)} KM</span>
+        {/* Floating Tooltip following cursor with adaptive edge alignment & vertical flip */}
+        {currentDisplay && (() => {
+          const isNearTop = currentDisplay.y < 85;
+          const leftPercent = (currentDisplay.x / width) * 100;
+          
+          let translateX = "-translate-x-1/2";
+          let arrowClass = "left-1/2 -translate-x-1/2";
+
+          // If close to left edge (near start, KM 0)
+          if (leftPercent < 8) {
+            translateX = "-translate-x-1";
+            arrowClass = "left-4";
+          } else if (leftPercent > 92) {
+            // If close to right edge (near finish, KM 5.2)
+            translateX = "-translate-x-[calc(100%-4px)]";
+            arrowClass = "right-4";
+          }
+
+          return (
+            <div
+              className={`absolute pointer-events-none z-30 bg-black/95 border border-[#8baa37] text-white text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg shadow-2xl backdrop-blur-md transform ${translateX} transition-transform duration-75 ${
+                isNearTop ? "translate-y-3" : "-translate-y-full -mt-3"
+              }`}
+              style={{
+                left: `${leftPercent}%`,
+                top: `${(currentDisplay.y / height) * 100}%`,
+              }}
+            >
+              <div className="font-black text-[#8baa37] flex items-center gap-1 whitespace-nowrap">
+                <span>📍 {currentDisplay.point.distKm.toFixed(2)} KM</span>
+              </div>
+              <div className="text-white font-bold whitespace-nowrap text-[10px] sm:text-[11px]">
+                Elevasi: {Math.round(currentDisplay.point.ele)} m
+              </div>
+              {/* Tooltip Arrow */}
+              {isNearTop ? (
+                <div className={`absolute -top-1 ${arrowClass} w-2 h-2 bg-black border-l border-t border-[#8baa37] rotate-45`} />
+              ) : (
+                <div className={`absolute -bottom-1 ${arrowClass} w-2 h-2 bg-black border-r border-b border-[#8baa37] rotate-45`} />
+              )}
             </div>
-            <div className="text-white/80 font-bold whitespace-nowrap">
-              Elev: {Math.round(currentDisplay.point.ele)} m
-            </div>
-            <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-2 h-2 bg-black border-r border-b border-[#8baa37] rotate-45" />
-          </div>
-        )}
+          );
+        })()}
       </div>
 
-      <div className="mt-3 flex items-center justify-between text-[11px] text-white/50">
-        <span>💡 Gerakkan kursor atau sentuh grafik untuk melihat posisi rute di peta.</span>
-        <span className="hidden sm:inline">Titik Awal & Akhir: Alun-Alun Wonosobo</span>
+      {/* Responsive Hint Text */}
+      <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-white/50 leading-relaxed">
+        <span className="flex items-center gap-1.5">
+          <span className="text-[#8baa37]">💡</span>
+          <span>Gerakkan kursor atau sentuh grafik untuk melihat posisi rute di peta.</span>
+        </span>
+        <span className="text-white/40 text-[10px] sm:text-[11px]">Titik Awal & Akhir: Alun-Alun Wonosobo</span>
       </div>
     </div>
   );
