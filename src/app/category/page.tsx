@@ -1,90 +1,163 @@
 "use client";
+
 import React from "react";
+import Link from "next/link";
+import { ROUTE_5K_META } from "../data/routeData";
 
-export default function CategoryPage() {
+export default function CategoryPreviewPage() {
+  const categories = [
+    {
+      title: "5K UMUM",
+      badge: "Kategori Terbuka",
+      desc: "Peserta Warga Negara Indonesia (WNI) dan Warga Negara Asing (WNA) usia 17 tahun ke atas.",
+      price: "Rp 150.000,-",
+    },
+    {
+      title: "5K PELAJAR",
+      badge: "Kategori Khusus",
+      desc: "Khusus pelajar aktif usia 10-17 tahun (Wajib melampirkan kartu pelajar yang valid).",
+      price: "Rp 150.000,-",
+    },
+    {
+      title: "5K INSTANSI KESEHATAN",
+      badge: "Kategori Faskes / Nakes",
+      desc: "Khusus pegawai & tenaga medis pada Fasilitas Pelayanan Kesehatan (SIP / ID Card).",
+      price: "Rp 150.000,-",
+    },
+  ];
+
   return (
-    <div className="min-h-screen pt-32 pb-20 px-[4%] max-w-7xl mx-auto text-white">
-      <div className="bg-[#1a6860]/20 border border-[#8baa37]/30 rounded-3xl p-8 md:p-12 backdrop-blur-md">
-        
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-white/10 pb-8 mb-8">
-          <div>
-            <div className="inline-block px-4 py-1.5 rounded-full bg-[#8baa37]/20 text-[#8baa37] text-sm font-bold tracking-wider mb-4 border border-[#8baa37]/30">
-              5K CATEGORY
+    <div className="min-h-screen pt-28 sm:pt-36 pb-20 px-[4%] max-w-6xl mx-auto text-white">
+      {/* Header & Badges */}
+      <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="inline-block bg-[#8baa37] text-black px-5 py-1.5 skew-x-[-12deg] mb-4 shadow-[4px_4px_0px_#051f1c]">
+          <span className="text-xs sm:text-sm italic uppercase font-black tracking-wider skew-x-[12deg] inline-block">
+            Category & Route Overview
+          </span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-black font-nunito tracking-tight text-white uppercase italic">
+          HKN62 <span className="text-[#8baa37]">5K Categories</span>
+        </h1>
+        <p className="mt-3 text-sm sm:text-base text-white/70">
+          18 OKTOBER 2026 &bull; ALUN-ALUN WONOSOBO &bull; 5.2 KM
+        </p>
+      </div>
+
+      {/* Category Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        {categories.map((cat, idx) => (
+          <div
+            key={idx}
+            className="bg-[#051f1c]/80 border border-white/10 hover:border-[#8baa37]/50 rounded-3xl p-6 flex flex-col justify-between backdrop-blur-md shadow-xl transition-all duration-300"
+          >
+            <div>
+              <span className="inline-block px-3 py-1 rounded-full bg-[#8baa37]/20 text-[#8baa37] text-xs font-bold uppercase tracking-wider mb-3">
+                {cat.badge}
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black font-nunito text-white tracking-tight">
+                {cat.title}
+              </h2>
+              <p className="mt-2 text-xs sm:text-sm text-white/70 leading-relaxed">
+                {cat.desc}
+              </p>
             </div>
-            <h1 className="text-3xl md:text-5xl font-black font-nunito tracking-tight mb-2">
-              Umum | Pelajar | Instansi Kesehatan
-            </h1>
-            <p className="text-xl text-white/70">HKN26 FUN RUN</p>
-          </div>
-          
-          <div className="text-left md:text-right">
-            <div className="flex flex-col items-start md:items-end mb-4">
-              <div className="text-4xl md:text-5xl font-black text-[#8baa37]">Rp 150.000,-</div>
-              <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-400/30 px-4 py-1.5 text-sm font-bold tracking-wider text-red-400 uppercase">
-                Sold Out
+
+            <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
+              <div>
+                <div className="text-xl font-black text-[#8baa37] font-nunito">
+                  {cat.price}
+                </div>
+                <div className="text-[10px] text-red-400 font-bold uppercase tracking-wider mt-0.5">
+                  Sold Out / Closed
+                </div>
               </div>
+              <span className="px-3.5 py-1.5 rounded-full bg-white/10 text-white/50 text-xs font-bold uppercase tracking-wide">
+                Ditutup
+              </span>
             </div>
-            <span aria-disabled="true" className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-8 py-4 text-sm font-bold tracking-wide text-white/50 uppercase cursor-not-allowed select-none">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              Closed
+          </div>
+        ))}
+      </div>
+
+      {/* Route Quick Summary & Action Card */}
+      <div className="bg-[#1a6860]/20 border border-[#8baa37]/30 rounded-3xl p-6 sm:p-10 backdrop-blur-md shadow-2xl">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border-b border-white/10 pb-8 mb-8">
+          <div>
+            <span className="text-xs uppercase font-bold text-[#8baa37] tracking-wider">
+              Spesifikasi Rute Resmi
             </span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {/* Details */}
-          <div className="bg-black/20 rounded-2xl p-6 border border-white/5">
-            <h3 className="text-lg font-bold mb-4 text-[#8baa37]">Event Details</h3>
-            <ul className="space-y-4">
-              <li className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-white/60">Open</span>
-                <span className="font-semibold">All Age</span>
-              </li>
-              <li className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-white/60">Start Date</span>
-                <span className="font-semibold">18 - 10 - 2026</span>
-              </li>
-              <li className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-white/60">Flag Off</span>
-                <span className="font-semibold">-</span>
-              </li>
-              <li className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-white/60">Cut Off Time</span>
-                <span className="font-semibold">1 jam 30 menit</span>
-              </li>
-              <li className="flex justify-between pb-2">
-                <span className="text-white/60">Elevation Gain</span>
-                <span className="font-semibold">-</span>
-              </li>
-            </ul>
+            <h3 className="text-2xl sm:text-3xl font-black font-nunito text-white mt-1">
+              RUTE 5K - ALUN-ALUN WONOSOBO
+            </h3>
+            <p className="text-sm text-white/70 mt-1 max-w-xl">
+              Rute beraspal mengitari pusat Wonosobo dengan kontur elevasi yang ramah pelari pemula hingga atlet.
+            </p>
           </div>
 
-          {/* Facilities */}
-          <div className="bg-black/20 rounded-2xl p-6 border border-white/5">
-            <h3 className="text-lg font-bold mb-4 text-[#8baa37]">Race Facility</h3>
-            <ul className="grid grid-cols-1 gap-3">
-              {['RACE JERSEY', 'BIB NUMBER', 'RACEPACK BAG', 'WATER STATION', 'REFRESHMENT', 'MEDIC', 'FINISHER MEDAL'].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#8baa37]"></div>
-                  <span className="font-medium text-sm tracking-wide">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Route */}
-          <div className="bg-black/20 rounded-2xl p-6 border border-white/5 flex flex-col items-center justify-center text-center min-h-[250px]">
-            <h3 className="text-lg font-bold mb-4 text-[#8baa37]">HKN26 ROUTE 5K</h3>
-            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/50">
-                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
-                <circle cx="12" cy="10" r="3" />
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Primary CTA: Jump to interactive map on homepage */}
+            <Link
+              href="/#category"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#8baa37] text-black font-black font-nunito text-sm uppercase tracking-wider shadow-lg hover:bg-white transition-all duration-300 transform hover:scale-105"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
               </svg>
-            </div>
-            <p className="text-xl font-medium text-white/50 italic">To be Announced</p>
+              <span>Buka Peta & Elevasi Interaktif</span>
+            </Link>
+
+            {/* Direct GPX Download */}
+            <a
+              href={ROUTE_5K_META.gpxFile}
+              download="RUTE-5K-HKN-FUN-RUN-2026.gpx"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white hover:text-black text-white font-bold text-sm tracking-wider uppercase border border-white/20 transition-all duration-300"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Unduh GPX</span>
+            </a>
           </div>
         </div>
 
+        {/* Specs Highlights */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="bg-black/30 border border-white/5 rounded-2xl p-4">
+            <div className="text-[11px] text-white/50 uppercase font-bold">Total Jarak</div>
+            <div className="text-xl sm:text-2xl font-black font-nunito text-white mt-1">
+              {ROUTE_5K_META.distance}
+            </div>
+            <div className="text-[10px] text-white/40 mt-0.5">5.200 meter</div>
+          </div>
+
+          <div className="bg-black/30 border border-white/5 rounded-2xl p-4">
+            <div className="text-[11px] text-white/50 uppercase font-bold">Elevation Gain</div>
+            <div className="text-xl sm:text-2xl font-black font-nunito text-[#8baa37] mt-1">
+              {ROUTE_5K_META.elevationGain}
+            </div>
+            <div className="text-[10px] text-white/40 mt-0.5">Loss: {ROUTE_5K_META.elevationLoss}</div>
+          </div>
+
+          <div className="bg-black/30 border border-white/5 rounded-2xl p-4">
+            <div className="text-[11px] text-white/50 uppercase font-bold">Cut Off Time</div>
+            <div className="text-xl sm:text-2xl font-black font-nunito text-white mt-1">
+              {ROUTE_5K_META.cutOffTime}
+            </div>
+            <div className="text-[10px] text-white/40 mt-0.5">Mulai: 06:00 WIB</div>
+          </div>
+
+          <div className="bg-black/30 border border-white/5 rounded-2xl p-4">
+            <div className="text-[11px] text-white/50 uppercase font-bold">Start & Finish</div>
+            <div className="text-lg sm:text-xl font-bold font-nunito text-white mt-1">
+              Alun-Alun
+            </div>
+            <div className="text-[10px] text-white/40 mt-0.5">Wonosobo, Jawa Tengah</div>
+          </div>
+        </div>
       </div>
     </div>
   );

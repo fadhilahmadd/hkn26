@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import CategoryRouteSection from "./CategoryRouteSection";
 
 
 const ASSETS = [
@@ -118,82 +119,8 @@ export default function AdditionalSections() {
       </div>
 
       
-      {/* EVENT INFO SECTION */}
-      <section className="px-[4%] sm:px-10 py-16 sm:py-24 relative isolate">
-        <div className="scroll-reveal max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
-          
-          <div className="w-full lg:w-auto flex-1 space-y-8">
-            <div>
-              <h2 className="text-4xl sm:text-7xl font-bold font-nunito tracking-tight text-[#1a6860] leading-none uppercase">
-                HKN62<br/>
-                <span className="text-[#8baa37]">FUN RUN 2026</span>
-              </h2>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 border-b border-[#e6e8ec] pb-4">
-                <div className="w-12 h-12 rounded-full bg-[#f4f4f4] flex items-center justify-center text-[#1a6860]">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div>
-                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider">Tanggal Pelaksanaan</div>
-                  <div className="text-2xl font-bold font-nunito text-[#0a0a0a]">18 OKTOBER 2026</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-4 border-b border-[#e6e8ec] pb-4">
-                <div className="w-12 h-12 rounded-full bg-[#f4f4f4] flex items-center justify-center text-[#1a6860]">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                </div>
-                <div>
-                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider">Lokasi</div>
-                  <div className="text-2xl font-bold font-nunito text-[#0a0a0a]">Alun Alun Wonosobo</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-4 border-b border-[#e6e8ec] pb-4">
-                <div className="w-12 h-12 rounded-full bg-[#f4f4f4] flex items-center justify-center text-[#1a6860]">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                </div>
-                <div>
-                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider">Kategori - 5K</div>
-                  <div className="text-xl font-bold font-nunito text-[#0a0a0a]">Umum | Pelajar | Instansi Kesehatan</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-4 border-b border-[#e6e8ec] pb-4">
-                <div className="w-12 h-12 rounded-full bg-[#f4f4f4] flex items-center justify-center text-[#1a6860]">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M12 12h.01"></path><path d="M17 12h.01"></path><path d="M7 12h.01"></path></svg>
-                </div>
-                <div>
-                  <div className="text-sm text-[#717784] uppercase font-bold tracking-wider mb-2">Harga Tiket</div>
-                  <div className="text-3xl font-black font-nunito text-[#8baa37]">Rp 150.000,-</div>
-                </div>
-              </div>
-            </div>
-            
-            <span aria-disabled="true" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4f4f4] border border-[#e6e8ec] text-[#717784] px-8 py-4 font-bold uppercase tracking-wide cursor-not-allowed select-none w-full sm:w-auto mt-6">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              Closed
-            </span>
-          </div>
-          
-          <div className="w-full lg:w-auto flex-1 bg-[#f4f4f4] rounded-[2rem] p-6 sm:p-12 shadow-inner">
-            <h3 className="text-3xl font-bold font-nunito text-[#1a6860] mb-8 border-b-2 border-[#8baa37] inline-block pb-2">Benefit</h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 text-base sm:text-lg font-medium text-[#0a0a0a]">
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Racepack Bag</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Waterstation</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Running Jersey</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Refreshment</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Bib</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Documentation</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Podium Prize</li>
-              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Finisher Medal</li>
-              <li className="flex items-center gap-3 col-span-1 sm:col-span-2"><span className="w-2 h-2 rounded-full bg-[#8baa37]"></span>Full DoorPrize</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      {/* CATEGORY & ROUTE SECTION (UGM TRAIL RUN STYLE) */}
+      <CategoryRouteSection />
 
       {/* DOWNLOAD DOCUMENTS */}
       <section className="px-[4%] sm:px-10 pb-16 sm:pb-24 relative" id="dokumen">
@@ -202,9 +129,23 @@ export default function AdditionalSections() {
             Dokumen <span className="text-[#8baa37]">Pendukung</span>
           </h2>
           <p className="mt-3 text-[#717784] max-w-2xl">
-            Unduh format surat yang diperlukan untuk pendaftaran dan pengambilan paket lomba.
+            Unduh format surat yang diperlukan untuk pendaftaran, rute GPX, dan pengambilan paket lomba.
           </p>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a
+              href="/gpx/RUTE+5K+-+HKN+FUN+RUN+2026.gpx"
+              download="RUTE-5K-HKN-FUN-RUN-2026.gpx"
+              className="group inline-flex items-center gap-4 rounded-2xl border border-[#8baa37]/50 bg-white px-5 py-4 shadow-sm hover:border-[#8baa37] hover:shadow-md transition-all duration-300"
+            >
+              <span className="w-11 h-11 shrink-0 rounded-full bg-[#8baa37]/20 text-[#1a6860] flex items-center justify-center group-hover:bg-[#8baa37] group-hover:text-black transition-colors duration-300">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+              </span>
+              <span className="text-left">
+                <span className="block font-bold font-nunito text-[#0a0a0a]">File Rute GPX Resmi (5K)</span>
+                <span className="block text-sm text-[#717784]">GPX · Untuk Garmin, COROS, Strava</span>
+              </span>
+            </a>
+
             <a
               href="/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"
               download="Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"

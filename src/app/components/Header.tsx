@@ -20,7 +20,7 @@ export default function Header() {
   
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Category", href: "/category" },
+    { name: "Category", href: "/#category" },
     { name: "Rules & Regulations", href: "/rules" },
     { name: "Gallery", href: "/gallery" },
   ];
