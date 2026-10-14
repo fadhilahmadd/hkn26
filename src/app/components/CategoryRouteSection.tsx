@@ -164,22 +164,18 @@ export default function CategoryRouteSection() {
   ];
 
   return (
-    <section id="category" className="relative py-12 md:py-20 overflow-hidden text-white">
+    <section id="category" className="relative py-12 md:py-20 overflow-hidden">
       {/* Section Header with UGM Trail Run Style Skewed Pill */}
       <div className="relative z-10 max-w-5xl mx-auto mb-12 text-center px-4">
-        <div className="inline-block bg-[#8baa37] text-black px-6 py-2 skew-x-[-12deg] mb-6 shadow-[4px_4px_0px_#051f1c]">
+        <div className="inline-block bg-[#8baa37] text-black px-6 py-2 skew-x-[-12deg] mb-6 shadow-[4px_4px_0px_#1a6860]">
           <p className="text-xs sm:text-sm md:text-base italic uppercase font-black tracking-wider skew-x-[12deg]">
             Race Categories & Route
           </p>
         </div>
 
-        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-nunito text-white uppercase italic tracking-tighter drop-shadow-2xl">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-nunito text-[#1a6860] uppercase italic tracking-tighter drop-shadow-sm">
           CHOOSE YOUR <span className="text-[#8baa37]">CATEGORY</span>
         </h2>
-        <p className="mt-4 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
-          Jelajahi keindahan rute 5K di sekeliling Kota Wonosobo dengan udara pegunungan yang sejuk.
-          Unduh rute resmi GPX dan persiapkan performa terbaik Anda.
-        </p>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -195,11 +191,11 @@ export default function CategoryRouteSection() {
                 className={`relative px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-nunito font-black uppercase tracking-tight text-sm sm:text-base transition-all duration-300 transform cursor-pointer ${
                   isSelected
                     ? "bg-[#8baa37] text-black shadow-[0_0_25px_rgba(139,170,55,0.45)] scale-105 border-2 border-[#8baa37]"
-                    : "bg-[#051f1c]/80 text-white/80 hover:text-white hover:bg-white/10 border border-white/10"
+                    : "bg-[#051f1c] text-white/90 hover:text-white hover:bg-[#1a6860] border border-white/10"
                 }`}
               >
                 <span className="block">{cat.label}</span>
-                <span className={`block text-[10px] sm:text-xs font-semibold ${isSelected ? "text-black/80" : "text-white/50"}`}>
+                <span className={`block text-[10px] sm:text-xs font-semibold ${isSelected ? "text-black/80" : "text-white/60"}`}>
                   {cat.sublabel}
                 </span>
               </button>
@@ -207,9 +203,9 @@ export default function CategoryRouteSection() {
           })}
         </div>
 
-        {/* Category Header Card: Price, Target Audience, and Download GPX CTA */}
-        <div className="bg-[#051f1c]/90 border border-white/15 rounded-3xl p-6 sm:p-10 mb-8 backdrop-blur-md shadow-2xl">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border-b border-white/10 pb-8">
+        {/* Category Header Card: Price and Target Audience */}
+        <div className="bg-[#051f1c]/90 border border-white/15 rounded-3xl p-6 sm:p-10 mb-8 backdrop-blur-md shadow-2xl text-white">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-white/10 pb-8">
             <div>
               <div className="inline-block px-3.5 py-1 rounded-full bg-[#8baa37]/20 border border-[#8baa37]/30 text-[#8baa37] text-xs font-bold uppercase tracking-wider mb-3">
                 {currentCategory.label} • 5 KILOMETERS
@@ -222,30 +218,14 @@ export default function CategoryRouteSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex flex-col items-start lg:items-end">
-                <div className="text-3xl sm:text-4xl font-black text-[#8baa37] font-nunito">
-                  {currentCategory.price}
-                </div>
-                <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-red-500/10 border border-red-500/30 px-3 py-1 text-xs font-bold text-red-400 uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                  Sold Out / Closed
-                </div>
+            <div className="flex flex-col items-start sm:items-end">
+              <div className="text-3xl sm:text-4xl font-black text-[#8baa37] font-nunito">
+                {currentCategory.price}
               </div>
-
-              {/* Download GPX Button (Prominent UGM UX) */}
-              <a
-                href={ROUTE_5K_META.gpxFile}
-                download="RUTE-5K-HKN-FUN-RUN-2026.gpx"
-                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white text-[#051f1c] hover:bg-[#8baa37] hover:text-black font-black font-nunito text-sm uppercase tracking-wider shadow-lg transition-all duration-300 transform hover:scale-105"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <span>Unduh File GPX</span>
-              </a>
+              <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-red-500/10 border border-red-500/30 px-3 py-1 text-xs font-bold text-red-400 uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                Sold Out / Closed
+              </div>
             </div>
           </div>
 

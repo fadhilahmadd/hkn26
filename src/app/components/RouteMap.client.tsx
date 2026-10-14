@@ -315,13 +315,13 @@ export default function RouteMap({ activePoint }: RouteMapProps) {
           <p className="text-xs text-white/60 mb-4">
             Pastikan koneksi internet aktif untuk memuat peta satelit OpenStreetMap.
           </p>
-          <a
-            href="/gpx/RUTE+5K+-+HKN+FUN+RUN+2026.gpx"
-            download="RUTE+5K+-+HKN+FUN+RUN+2026.gpx"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#8baa37] text-black font-bold text-xs rounded-full uppercase"
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#8baa37] text-black font-bold text-xs rounded-full uppercase cursor-pointer"
           >
-            Unduh Berkas GPX Langsung
-          </a>
+            Muat Ulang Halaman
+          </button>
         </div>
       )}
     </div>

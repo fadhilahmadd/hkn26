@@ -107,20 +107,6 @@ export default function CategoryPreviewPage() {
               </svg>
               <span>Buka Peta & Elevasi Interaktif</span>
             </Link>
-
-            {/* Direct GPX Download */}
-            <a
-              href={ROUTE_5K_META.gpxFile}
-              download="RUTE-5K-HKN-FUN-RUN-2026.gpx"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white hover:text-black text-white font-bold text-sm tracking-wider uppercase border border-white/20 transition-all duration-300"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              <span>Unduh GPX</span>
-            </a>
           </div>
         </div>
 

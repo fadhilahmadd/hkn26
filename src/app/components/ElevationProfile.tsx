@@ -21,7 +21,7 @@ export default function ElevationProfile({
 
   const points = ROUTE_5K_POINTS;
 
-  const { minEle, maxEle, totalDist, pathD, areaD, width, height, padding } =
+  const { minEle, maxEle, totalDist, pathD, areaD, width, height, padding, getX, getY } =
     useMemo(() => {
       const w = 1000;
       const h = 200;
@@ -103,8 +103,8 @@ export default function ElevationProfile({
 
   // If activeHoverPoint passed from parent, use that to show indicator
   const currentDisplay = hoverData || (activeHoverPoint ? {
-    x: padding.left + (activeHoverPoint.distKm / totalDist) * (width - padding.left - padding.right),
-    y: padding.top + (height - padding.top - padding.bottom) - ((activeHoverPoint.ele - Math.floor(minEle - 10)) / (Math.ceil(maxEle + 10) - Math.floor(minEle - 10))) * (height - padding.top - padding.bottom),
+    x: getX(activeHoverPoint.distKm),
+    y: getY(activeHoverPoint.ele),
     point: activeHoverPoint,
   } : null);
 

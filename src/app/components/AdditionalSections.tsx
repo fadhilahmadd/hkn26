@@ -129,23 +129,9 @@ export default function AdditionalSections() {
             Dokumen <span className="text-[#8baa37]">Pendukung</span>
           </h2>
           <p className="mt-3 text-[#717784] max-w-2xl">
-            Unduh format surat yang diperlukan untuk pendaftaran, rute GPX, dan pengambilan paket lomba.
+            Unduh format surat yang diperlukan untuk pendaftaran dan pengambilan paket lomba.
           </p>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a
-              href="/gpx/RUTE+5K+-+HKN+FUN+RUN+2026.gpx"
-              download="RUTE-5K-HKN-FUN-RUN-2026.gpx"
-              className="group inline-flex items-center gap-4 rounded-2xl border border-[#8baa37]/50 bg-white px-5 py-4 shadow-sm hover:border-[#8baa37] hover:shadow-md transition-all duration-300"
-            >
-              <span className="w-11 h-11 shrink-0 rounded-full bg-[#8baa37]/20 text-[#1a6860] flex items-center justify-center group-hover:bg-[#8baa37] group-hover:text-black transition-colors duration-300">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-              </span>
-              <span className="text-left">
-                <span className="block font-bold font-nunito text-[#0a0a0a]">File Rute GPX Resmi (5K)</span>
-                <span className="block text-sm text-[#717784]">GPX · Untuk Garmin, COROS, Strava</span>
-              </span>
-            </a>
-
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a
               href="/Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"
               download="Surat-Persetujuan-Orang-Tua-HKN-FUN-RUN-2026.pdf"
