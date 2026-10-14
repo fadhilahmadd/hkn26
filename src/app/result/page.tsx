@@ -25,7 +25,7 @@ export default function ResultPage() {
           RACE RESULTS <span className="text-[#8baa37]">HKN62</span>
         </h1>
         <p className="mt-3 text-sm sm:text-base text-white/70 max-w-xl mx-auto">
-          Catatan waktu resmi (Gun Time & Chip Time) serta sertifikat elektronik (e-Certificate) finisher HKN62 Fun Run 2026.
+          Catatan waktu resmi serta sertifikat elektronik (e-Certificate) finisher HKN62 Fun Run 2026.
         </p>
       </div>
 
@@ -46,7 +46,7 @@ export default function ResultPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-8">
-            Sistem pencatat waktu (Timing System) akan aktif saat perlombaan berlangsung pada <strong className="text-white">Minggu, 18 Oktober 2026</strong> di Alun-Alun Wonosobo. Seluruh hasil catatan waktu, peringkat podium juara, dan unduhan e-Certificate akan dipublikasikan secara langsung di halaman ini setelah race selesai.
+            Sistem pencatat waktu (Timing System) akan aktif saat perlombaan berlangsung pada <strong className="text-white">Minggu, 18 Oktober 2026</strong> di Alun-Alun Wonosobo. Seluruh hasil catatan waktu, peringkat podium juara, dan unduhan e-Certificate akan dipublikasikan di halaman ini.
           </p>
 
           {/* Event Schedule Quick Info */}
@@ -68,21 +68,6 @@ export default function ResultPage() {
               <span className="text-sm sm:text-base font-black font-nunito text-white mt-1 block">
                 Alun-Alun Wonosobo
               </span>
-            </div>
-          </div>
-
-          {/* Category Preview Chips */}
-          <div className="border-t border-white/10 pt-6 mb-8 text-left">
-            <span className="text-[11px] text-white/50 uppercase font-bold tracking-wider block mb-3 text-center">
-              Kategori yang akan ditampilkan:
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              {categories.map((cat) => (
-                <div key={cat.key} className="bg-black/25 border border-white/5 rounded-xl p-3 text-center">
-                  <div className="text-xs font-black font-nunito text-[#8baa37] uppercase">{cat.label}</div>
-                  <div className="text-[10px] text-white/60 mt-0.5">{cat.desc}</div>
-                </div>
-              ))}
             </div>
           </div>
 
