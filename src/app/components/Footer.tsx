@@ -64,7 +64,6 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/50 mb-4">Event Info</h4>
             <ul className="space-y-3 text-sm text-white/80">
-              <li><Link href="/result" className="hover:text-white transition-colors">Result</Link></li>
               <li><Link href="/rules" className="hover:text-white transition-colors">Rules & Regulations</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
             </ul>

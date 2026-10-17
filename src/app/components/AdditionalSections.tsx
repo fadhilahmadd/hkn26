@@ -5,13 +5,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import CategoryRouteSection from "./CategoryRouteSection";
+import SponsorsSection from "./SponsorsSection";
 
 
 const ASSETS = [
   { src: '/running1.webp', w: 180, h: 180, t: '5%', l: '2%' },
   { src: '/running2.webp', w: 150, h: 150, t: '30%', l: '85%' },
   { src: '/running3.webp', w: 200, h: 200, t: '60%', l: '5%' },
-  { src: '/shoe1.webp', w: 140, h: 140, t: '85%', l: '85%' },
 ];
 
 export default function AdditionalSections() {
@@ -217,9 +217,8 @@ export default function AdditionalSections() {
         </div>
       </section>
 
-      
-      {/* 6. FOOTER */}
-      
+      {/* SPONSORS SECTION */}
+      <SponsorsSection />
     </div>
   );
 }

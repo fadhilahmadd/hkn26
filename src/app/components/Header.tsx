@@ -25,7 +25,6 @@ export default function Header() {
     { name: "Category", href: "/#category" },
     { name: "Rules & Regulations", href: "/rules" },
     { name: "Gallery", href: "/gallery" },
-    { name: "Result", href: "/result" },
   ];
 
   const handleNavClick = (
