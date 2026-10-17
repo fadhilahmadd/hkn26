@@ -238,7 +238,7 @@ const GALLERY_DATA: GallerySection[] = [
     items: [
       {
         id: "team-official",
-        title: "Dokumentasi Tim & Official HKN Run 2026",
+        title: "Dokumentasi Tim & Official HKN FUN RUN 2026",
         url: "https://photos.app.goo.gl/u6WFoNwTpbht97sE6",
         tag: "Tim & Official",
         badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
@@ -338,7 +338,7 @@ export default function GalleryPage() {
               </h2>
 
               <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
-                Seluruh folder foto resmi HKN Run 2026 akan dibuka secara serentak pada{" "}
+                Seluruh folder foto resmi HKN FUN RUN 2026 akan dibuka secara serentak pada{" "}
                 <strong className="text-white">Minggu, 18 Oktober 2026 berkisar di jam 09:00</strong>{" "}
                 setelah proses seleksi dan kurasi foto selesai dilakukan oleh tim fotografer kami.
               </p>
@@ -420,7 +420,7 @@ export default function GalleryPage() {
               Official Media & Photography Team
             </h3>
             <p className="text-xs sm:text-sm text-white/60 mb-5 leading-relaxed">
-              Momen Anda diabadikan oleh rekan-rekan fotografer resmi HKN Run 2026 di berbagai titik rute:
+              Momen Anda diabadikan oleh rekan-rekan fotografer resmi HKN FUN RUN 2026 di berbagai titik rute:
             </p>
             <div className="flex flex-wrap gap-2.5">
               {[
@@ -613,7 +613,7 @@ export default function GalleryPage() {
           {/* Bottom Card */}
           <div className="bg-[#051f1c]/90 border border-white/15 rounded-3xl p-8 text-center backdrop-blur-xl">
             <h3 className="text-xl sm:text-2xl font-black font-nunito uppercase italic text-white">
-              HKN RUN 2026
+              HKN FUN RUN 2026
             </h3>
             <p className="text-sm text-[#8baa37] font-bold italic mt-1">
               Take Your Healthy Step!
