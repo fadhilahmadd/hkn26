@@ -170,7 +170,7 @@ const GALLERY_DATA: GallerySection[] = [
     items: [
       {
         id: "best-of",
-        title: "THE BEST OF HKN RUN",
+        title: "THE BEST OF HKN FUN RUN",
         url: "https://photos.app.goo.gl/kSzv2QYU7txPv6fL8",
         tag: "Pilihan Terbaik",
         badgeColor: "bg-amber-400/25 text-amber-300 border-amber-400/50",
@@ -309,7 +309,7 @@ export default function GalleryPage() {
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-nunito tracking-tight text-white uppercase italic">
-          HKN RUN <span className="text-[#8baa37]">2026</span>
+          HKN FUN RUN <span className="text-[#8baa37]">2026</span>
         </h1>
         <p className="mt-2 text-base sm:text-xl font-bold italic tracking-wide text-white/90">
           Take Your Healthy Step!
