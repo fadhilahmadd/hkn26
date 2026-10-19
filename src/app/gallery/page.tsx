@@ -24,12 +24,15 @@ function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 }
 
 // ============================================================================
-// TESTING / PREVIEW TOGGLE
-// - Ganti nilai ini ke `true` jika ingin langsung melihat tampilan Galeri yang SUDAH RILIS.
-// - Saat `false`, halaman ini akan otomatis berganti ke Galeri Rilis tepat pada 18 Oktober 2026 pukul 09:00 WIB.
-// - Tips: Anda juga dapat menambahkan '?preview=true' pada URL (contoh: /gallery?preview=true) untuk uji coba langsung tanpa ubah kode!
+// MAINTENANCE MODE / SEMBUNYIKAN GALERI:
+// - Set `true` untuk menyembunyikan galeri saat foto sedang dalam proses pemeliharaan/kurasi.
+// - Set `false` jika maintenance selesai dan galeri siap dibuka kembali ke publik.
+// - Tips: Anda tetap bisa mempratinjau album dengan '?preview=true' di URL (contoh: /gallery?preview=true).
 // ============================================================================
-const FORCE_OPEN = false; // <-- UBAH KE true UNTUK CEK UI RILIS SEKARANG
+const IS_MAINTENANCE = true; // <-- SET TRUE UNTUK SEMBUNYIKAN GALERI
+
+// TESTING / PREVIEW TOGGLE (Saat IS_MAINTENANCE = false)
+const FORCE_OPEN = false;
 
 // Target Waktu Rilis: 18 Oktober 2026, 09:00:00 WIB (GMT+7)
 const RELEASE_DATE_ISO = "2026-10-18T09:00:00+07:00";
@@ -270,10 +273,20 @@ export default function GalleryPage() {
       const urlParams = new URLSearchParams(window.location.search);
       const isPreview = urlParams.get("preview") === "true";
 
+      if (isPreview) {
+        setIsUnlocked(true);
+        return;
+      }
+
+      if (IS_MAINTENANCE) {
+        setIsUnlocked(false);
+        return;
+      }
+
       const now = Date.now();
       const diff = RELEASE_TIMESTAMP - now;
 
-      if (FORCE_OPEN || isPreview || diff <= 0) {
+      if (FORCE_OPEN || diff <= 0) {
         setIsUnlocked(true);
       } else {
         setIsUnlocked(false);
@@ -316,7 +329,7 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      {/* CONDITIONAL RENDER: BEFORE RELEASE COUNTDOWN VS RELEASED GALLERY */}
+      {/* CONDITIONAL RENDER: MAINTENANCE / BEFORE RELEASE VS RELEASED GALLERY */}
       {!isClient ? (
         // Hydration placeholder
         <div className="bg-[#051f1c]/80 border border-white/10 rounded-3xl p-12 text-center">
@@ -325,7 +338,7 @@ export default function GalleryPage() {
         </div>
       ) : !isUnlocked ? (
         // ====================================================================
-        // STATE 1: BEFORE RELEASE (COUNTDOWN & WAITING ROOM)
+        // STATE 1: HIDDEN / UNDER MAINTENANCE (OR COUNTDOWN)
         // ====================================================================
         <div className="space-y-8">
           {/* Main Announcement Card */}
@@ -333,84 +346,143 @@ export default function GalleryPage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#8baa37]/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-2xl mx-auto">
-              <h2 className="text-2xl sm:text-4xl font-black font-nunito text-white uppercase tracking-tight mb-4">
-                Dokumentasi Resmi Dibuka 18 Oktober 2026
-              </h2>
-
-              <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
-                Seluruh folder foto resmi HKN FUN RUN 2026 akan dibuka secara serentak pada{" "}
-                <strong className="text-white">Minggu, 18 Oktober 2026 berkisar di jam 09:00</strong>{" "}
-                setelah proses seleksi dan kurasi foto selesai dilakukan oleh tim fotografer kami.
-              </p>
-
-              {/* Countdown Digits (Fixed Centered Layout) */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-lg mx-auto mb-8">
-                {timeLeft.days > 0 && (
-                  <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
-                    <span className="text-2xl sm:text-4xl font-black font-nunito text-[#8baa37] block">
-                      {String(timeLeft.days).padStart(2, "0")}
-                    </span>
-                    <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
-                      Hari
-                    </span>
+              {IS_MAINTENANCE ? (
+                <>
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span>Under Maintenance</span>
                   </div>
-                )}
-                <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
-                  <span className="text-2xl sm:text-4xl font-black font-nunito text-[#8baa37] block">
-                    {String(timeLeft.hours).padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
-                    Jam
-                  </span>
-                </div>
-                <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
-                  <span className="text-2xl sm:text-4xl font-black font-nunito text-white block">
-                    {String(timeLeft.minutes).padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
-                    Menit
-                  </span>
-                </div>
-                <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
-                  <span className="text-2xl sm:text-4xl font-black font-nunito text-white block">
-                    {String(timeLeft.seconds).padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
-                    Detik
-                  </span>
-                </div>
-              </div>
 
-              {/* Time Window Notice (Using Lucide Info Icon) */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 text-left mb-6 flex items-start gap-3">
-                <Info className="w-5 h-5 text-[#8baa37] shrink-0 mt-0.5" />
-                <div className="text-xs sm:text-sm text-white/80 leading-relaxed">
-                  <strong className="text-white block font-semibold mb-1">
-                    Jadwal Rilis Tautan Foto:
-                  </strong>
-                  Tautan Google Photos untuk setiap spot rute (Start, Finish, Checkpoints KM 1 s/d KM 4.5, After Race, dan Podium) akan otomatis aktif dan dapat diakses langsung di halaman ini mulai pukul 09:00 WIB.
-                </div>
-              </div>
+                  <h2 className="text-2xl sm:text-4xl font-black font-nunito text-white uppercase tracking-tight mb-4">
+                    Dokumentasi Foto Sedang Dalam Pemeliharaan
+                  </h2>
 
-              {/* Return Home Button */}
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#051f1c] hover:bg-[#8baa37] hover:text-black font-black font-nunito text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg transform hover:scale-105"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <span>Kembali ke Beranda</span>
-                </Link>
-                <Link
-                  href="/#category"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-white/15 transition-all duration-300"
-                >
-                  <span>Lihat Rute Lomba</span>
-                </Link>
-              </div>
+                  <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                    Tautan album foto dokumentasi resmi HKN FUN RUN 2026 saat ini sedang disembunyikan sementara untuk proses kurasi, penataan ulang folder, dan peningkatan resolusi foto oleh tim fotografer kami agar menghasilkan dokumentasi terbaik.
+                  </p>
+
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 text-left mb-8 flex items-start gap-3">
+                    <Info className="w-5 h-5 text-[#8baa37] shrink-0 mt-0.5" />
+                    <div className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                      <strong className="text-white block font-semibold mb-1">
+                        Informasi Pembaruan:
+                      </strong>
+                      Seluruh folder album Google Photos akan segera dibuka kembali setelah proses pemeliharaan selesai. Pantau juga pengumuman terbaru di Instagram resmi{" "}
+                      <a
+                        href="https://www.instagram.com/hknfunrun"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#8baa37] hover:underline font-semibold"
+                      >
+                        @hknfunrun
+                      </a>.
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    <Link
+                      href="/"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#051f1c] hover:bg-[#8baa37] hover:text-black font-black font-nunito text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg transform hover:scale-105"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </svg>
+                      <span>Kembali ke Beranda</span>
+                    </Link>
+
+                    <a
+                      href="https://www.instagram.com/hknfunrun"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-white/15 transition-all duration-300"
+                    >
+                      <InstagramIcon className="w-4 h-4 text-[#8baa37]" />
+                      <span>Instagram @hknfunrun</span>
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-2xl sm:text-4xl font-black font-nunito text-white uppercase tracking-tight mb-4">
+                    Dokumentasi Resmi Dibuka 18 Oktober 2026
+                  </h2>
+
+                  <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                    Seluruh folder foto resmi HKN FUN RUN 2026 akan dibuka secara serentak pada{" "}
+                    <strong className="text-white">Minggu, 18 Oktober 2026 berkisar di jam 09:00</strong>{" "}
+                    setelah proses seleksi dan kurasi foto selesai dilakukan oleh tim fotografer kami.
+                  </p>
+
+                  {/* Countdown Digits (Fixed Centered Layout) */}
+                  <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-lg mx-auto mb-8">
+                    {timeLeft.days > 0 && (
+                      <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
+                        <span className="text-2xl sm:text-4xl font-black font-nunito text-[#8baa37] block">
+                          {String(timeLeft.days).padStart(2, "0")}
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
+                          Hari
+                        </span>
+                      </div>
+                    )}
+                    <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
+                      <span className="text-2xl sm:text-4xl font-black font-nunito text-[#8baa37] block">
+                        {String(timeLeft.hours).padStart(2, "0")}
+                      </span>
+                      <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
+                        Jam
+                      </span>
+                    </div>
+                    <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
+                      <span className="text-2xl sm:text-4xl font-black font-nunito text-white block">
+                        {String(timeLeft.minutes).padStart(2, "0")}
+                      </span>
+                      <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
+                        Menit
+                      </span>
+                    </div>
+                    <div className="min-w-[76px] sm:min-w-[96px] flex-1 max-w-[120px] bg-black/40 border border-white/10 rounded-2xl p-4 text-center">
+                      <span className="text-2xl sm:text-4xl font-black font-nunito text-white block">
+                        {String(timeLeft.seconds).padStart(2, "0")}
+                      </span>
+                      <span className="text-[10px] sm:text-xs text-white/50 uppercase font-bold tracking-wider mt-1 block">
+                        Detik
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Time Window Notice */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 text-left mb-6 flex items-start gap-3">
+                    <Info className="w-5 h-5 text-[#8baa37] shrink-0 mt-0.5" />
+                    <div className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                      <strong className="text-white block font-semibold mb-1">
+                        Jadwal Rilis Tautan Foto:
+                      </strong>
+                      Tautan Google Photos untuk setiap spot rute (Start, Finish, Checkpoints KM 1 s/d KM 4.5, After Race, dan Podium) akan otomatis aktif dan dapat diakses langsung di halaman ini mulai pukul 09:00 WIB.
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    <Link
+                      href="/"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#051f1c] hover:bg-[#8baa37] hover:text-black font-black font-nunito text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg transform hover:scale-105"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </svg>
+                      <span>Kembali ke Beranda</span>
+                    </Link>
+                    <Link
+                      href="/#category"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-white/15 transition-all duration-300"
+                    >
+                      <span>Lihat Rute Lomba</span>
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
