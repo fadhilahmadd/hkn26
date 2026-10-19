@@ -29,7 +29,7 @@ function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 // - Set `false` jika maintenance selesai dan galeri siap dibuka kembali ke publik.
 // - Tips: Anda tetap bisa mempratinjau album dengan '?preview=true' di URL (contoh: /gallery?preview=true).
 // ============================================================================
-const IS_MAINTENANCE = true; // <-- SET TRUE UNTUK SEMBUNYIKAN GALERI
+const IS_MAINTENANCE = false; // <-- SET TRUE UNTUK SEMBUNYIKAN GALERI
 
 // TESTING / PREVIEW TOGGLE (Saat IS_MAINTENANCE = false)
 const FORCE_OPEN = false;
