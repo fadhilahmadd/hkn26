@@ -453,26 +453,6 @@ export default function GalleryPage() {
         // STATE 2: RELEASED GALLERY (AUTO AT 09:00 WIB OR FORCE_OPEN)
         // ====================================================================
         <div className="space-y-10">
-          {/* Release Notice Banner */}
-          <div className="bg-gradient-to-r from-[#1a6860] to-[#093833] border border-[#8baa37]/40 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-5">
-            <div className="flex items-center gap-4 text-center md:text-left">
-              <div>
-                <h2 className="text-lg sm:text-xl font-black font-nunito uppercase tracking-wide text-white">
-                  Semua Album Dokumentasi Resmi Telah Dibuka!
-                </h2>
-                <p className="text-xs sm:text-sm text-white/80 mt-1">
-                  Klik tombol <strong>Buka Album Foto</strong> untuk membuka album Google Photos dan unduh foto resolusi aslinya.
-                </p>
-              </div>
-            </div>
-            <div className="shrink-0 flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8baa37]/20 border border-[#8baa37]/40 text-[#8baa37] text-xs font-bold uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-[#8baa37] animate-pulse" />
-                Live Album
-              </span>
-            </div>
-          </div>
-
           {/* Quick Jump Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2 pb-2">
             {GALLERY_DATA.map((section) => (
