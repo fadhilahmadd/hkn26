@@ -115,7 +115,7 @@ export default function HeroScene() {
   return (
     <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
       
-      {/* Hero Background Image - Full in bottom so HKN logo is completely visible */}
+      {/* Hero Background Image - Full in bottom so HKN logo is completely visible, unoptimized to prevent Next.js from downsampling to low-res blurry thumbnail on mobile */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <Image
           src="/hero-bg.webp"
@@ -123,8 +123,7 @@ export default function HeroScene() {
           alt="HKN62 Fun Run Wonosobo Background"
           className="object-cover object-bottom"
           priority
-          sizes="100vw"
-          quality={80}
+          unoptimized
         />
         {/* Subtle top/mid gradient to maintain text legibility while keeping the bottom logo completely clear */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#051f1c]/70 via-[#051f1c]/25 to-transparent"></div>
