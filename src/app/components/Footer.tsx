@@ -44,10 +44,6 @@ export default function Footer() {
             </p>
             <address className="not-italic mt-6 text-sm text-white/80 flex flex-col gap-1">
               <a href="mailto:info@hknfunrun.com" className="hover:text-white transition-colors">info@hknfunrun.com</a>
-              <div className="flex flex-col gap-1 mt-1 text-white/70">
-                <a href="https://wa.me/6285331407300" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Harsono: 0853-3140-7300</a>
-                <a href="https://wa.me/6281325072799" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Faiz: 0813-2507-2799</a>
-              </div>
               <span className="text-white/55 mt-2">Alun Alun Wonosobo, ID</span>
             </address>
           </div>
