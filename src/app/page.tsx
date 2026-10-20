@@ -1,16 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
+import HeroScene from "./components/HeroScene.client";
 import AdditionalSections from "./components/AdditionalSections";
-
-const HeroScene = dynamic(
-  () => import("@/app/components/HeroScene.client"),
-  {
-    ssr: false,
-    loading: () => <div className="relative h-screen w-full bg-[#051f1c]" />,
-  },
-);
 
 export default function Home() {
   // Handle in-page anchor navigation (like /#category) when loaded or navigated from another page
